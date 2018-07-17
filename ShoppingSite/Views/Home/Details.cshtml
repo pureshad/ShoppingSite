@@ -1,0 +1,62 @@
+﻿@model ShoppingSite.Models.Entitys.Products
+
+@{
+    ViewBag.Title = "ViewDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Product Details</h2>
+<div class="form-border row">
+    <div class="col-sm-8">
+        <div class="form-group row">
+            <div class="col-sm-4">
+                <p>Brand Name: @Model.Name</p>
+            </div>
+            <div class="col-sm-8">
+                <p>Creation Time: @Model.CreatedTime</p>
+            </div>
+        </div>
+        <div class="form-group row">
+
+            <div class="col-sm-4">
+                <p>Category : @Model.CategoryType.Name</p>
+            </div>
+
+            <div class="col-sm-8">
+                <p>Watch price : @Model.Price$</p>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-4">
+                <p>Strap Quality: @Model.StrapQuality</p>
+            </div>
+
+            <div class="col-sm-8">
+                <p>Quantity Available : @Model.NumberAvailable</p>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-4">
+                <p>Display Type: @Model.DisplayType</p>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-8">
+                <h3>Details:</h3>
+                <p>@Model.Description</p>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-4">
+                <a href="#" type="button" class="btn btn-sm btn-success">Edit</a>
+                <a href="/Home/Index" type="button" class="btn btn-sm btn-primary">Back To List</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-3 col-sm-offset-0">
+        <img class="responsive" src="~/Images/@Model.Image" style="width:350px; height:350px;" alt="image cap">
+    </div>
+</div>
+
+@Html.HiddenFor(q => q.Id)

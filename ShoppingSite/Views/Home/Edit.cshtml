@@ -1,0 +1,84 @@
+﻿@model ShoppingSite.ViewModels.ProductsViewModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm("Save", "Home"))
+{
+    <div>
+        @Html.ValidationSummary(true, "Please fix the following problems.")
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(w => w.Name)
+        @Html.TextBoxFor(w => w.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(w => w.Name)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(w => w.Description)
+        @Html.TextAreaFor(w => w.Description, new { @class = "form-control" })
+        @Html.ValidationMessageFor(w => w.Description)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(w => w.Brand)
+        @Html.TextBoxFor(w => w.Brand, new { @class = "form-control" })
+        @Html.ValidationMessageFor(w => w.Brand)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(w => w.Price)
+        @Html.TextBoxFor(w => w.Price, new { @class = "form-control" })
+        @Html.ValidationMessageFor(w => w.Price)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(w => w.StrapQuality)
+        @Html.TextBoxFor(w => w.StrapQuality, new { @class = "form-control" })
+        @Html.ValidationMessageFor(w => w.StrapQuality)
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(w => w.NumberAvailable)
+        @Html.TextBoxFor(w => w.NumberAvailable, new { @class = "form-control" })
+        @Html.ValidationMessageFor(w => w.NumberAvailable)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(w => w.CategoryTypeId)
+        @Html.DropDownListFor(w => w.CategoryTypeId, new SelectList(Model.CategoryTypes, "Id", "Name"), "Select Category", new { @class = "form-control" })
+        @Html.ValidationMessageFor(w => w.CategoryTypeId)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(w => w.CreatedTime)
+        @Html.TextBoxFor(w => w.CreatedTime, "{0:d MMM yyyy}", new { @class = "form-control" })
+        @Html.ValidationMessageFor(w => w.CreatedTime)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(w => w.DisplayType)
+        @Html.TextBoxFor(w => w.DisplayType, new { @class = "form-control" })
+        @Html.ValidationMessageFor(w => w.DisplayType)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(w => w.Image)
+        @Html.TextBoxFor(w => w.Image, new { type = "file" })
+        @Html.ValidationMessageFor(w => w.Image)
+    </div>
+
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(w => w.Id)
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/modernizr")
+}

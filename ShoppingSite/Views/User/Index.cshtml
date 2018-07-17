@@ -1,0 +1,35 @@
+﻿@model IEnumerable<ShoppingSite.Models.Entitys.User>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Users Page</h2>
+<div class="form-group">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <td>Name</td>
+                <td>Last Name</td>
+                <td>Birth Date</td>
+                <td>Email</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <th>@user.FirstName</th>
+                    <th>@user.LastName</th>
+                    <th>@user.BirthDate</th>
+                    <th>@user.Email</th>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="form-group">
+        <a href="/User/CreateUser" class="btn btn-primary">Create New User</a>
+    </div>
+</div>
+
