@@ -1,9 +1,7 @@
 ﻿using ShoppingSite.Models;
 using ShoppingSite.Models.Entitys;
 using ShoppingSite.ViewModels;
-using System;
 using System.Data.Entity;
-using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -27,7 +25,11 @@ namespace ShoppingSite.Controllers
         {
             var products = _dbContext.Products.Include(w => w.CategoryType).ToList();
 
-            return View(products);
+            if (User.IsInRole(StaticRoles.IsAdmin) || User.Identity.IsAuthenticated)
+            {
+                return View(products);
+            }
+            return View("ReadOnlyIndex", products);
         }
 
         public ActionResult Details(int? id)
@@ -42,6 +44,7 @@ namespace ShoppingSite.Controllers
             return View(product);
         }
 
+        [Authorize(Roles = StaticRoles.IsAdmin)]
         public ActionResult CreateProduct()
         {
             var productVM = new ProductsViewModel
@@ -53,6 +56,7 @@ namespace ShoppingSite.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = StaticRoles.IsAdmin)]
         [ValidateAntiForgeryToken]
         public ActionResult Save(Products products)
         {
@@ -67,8 +71,6 @@ namespace ShoppingSite.Controllers
 
                 return View("CreateProduct", productVM);
             }
-
-            //var product = _dbContext.Products.SingleOrDefault(w => w.Id == products.Id);
 
             if (products.Id == 0)
             {
@@ -95,6 +97,7 @@ namespace ShoppingSite.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [Authorize(Roles = StaticRoles.IsAdmin)]
         public ActionResult Edit(int? id)
         {
             var product = _dbContext.Products.Include(w => w.CategoryType).SingleOrDefault(w => w.Id == id);
@@ -114,6 +117,28 @@ namespace ShoppingSite.Controllers
             };
 
             return View("Edit", productVM);
+        }
+
+        [Authorize(Roles = StaticRoles.IsAdmin)]
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            var productInDb = _dbContext.Products.Find(id);
+
+            if (productInDb == null)
+            {
+                return HttpNotFound();
+            }
+
+            _dbContext.Products.Remove(productInDb);
+
+            _dbContext.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

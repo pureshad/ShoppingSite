@@ -11,8 +11,12 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                <li>@Html.ActionLink("User", "Index", "User")</li>
-                <li>@Html.ActionLink(" Shopping Cart", "View", "Controller", new { @class = "glyphicon glyphicon-shopping-cart" })
+                @if (User.IsInRole("IsAdmin"))
+                {
+                    <li>@Html.ActionLink("User", "Index", "User")</li>
+                }
+                <li>
+                    @Html.ActionLink(" Shopping Cart", "View", "Controller", new { @class = "glyphicon glyphicon-shopping-cart" })
                 </li>
             </ul>
             @Html.Partial("_LoginPartial")
