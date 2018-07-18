@@ -1,4 +1,5 @@
-﻿using ShoppingSite.Models.Entitys;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using ShoppingSite.Models.Entitys;
 using System.Collections.Generic;
 
 namespace ShoppingSite.ViewModels

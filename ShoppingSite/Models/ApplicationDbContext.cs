@@ -16,6 +16,8 @@ namespace ShoppingSite.Models
         public DbSet<Products> Products { get; set; }
         public DbSet<ShoppingCart> ShoppingCart { get; set; }
         public DbSet<CategoryType> CategoryTypes { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<OrderHeader> OrderHeaders { get; set; }
 
 
         public static ApplicationDbContext Create()

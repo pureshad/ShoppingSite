@@ -25,7 +25,7 @@ namespace ShoppingSite.Controllers
         {
             var products = _dbContext.Products.Include(w => w.CategoryType).ToList();
 
-            if (User.IsInRole(StaticRoles.IsAdmin) || User.Identity.IsAuthenticated)
+            if (User.IsInRole(StaticRoles.IsAdmin) || User.Identity.IsAuthenticated) //TODO remove OR
             {
                 return View(products);
             }

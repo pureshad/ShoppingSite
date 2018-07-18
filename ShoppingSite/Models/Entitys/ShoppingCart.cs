@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ShoppingSite.Models.Entitys
 {
@@ -7,7 +8,7 @@ namespace ShoppingSite.Models.Entitys
         public int Id { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public string ApplicationUserId { get; set; }
 
         public int ProductsId { get; set; }
 
@@ -15,8 +16,12 @@ namespace ShoppingSite.Models.Entitys
         public Products Products { get; set; }
 
         [Required]
-        public User User { get; set; }
+        [NotMapped]
+        public ApplicationUser ApplicationUser { get; set; }
 
         public int UserId { get; set; }
+
+        [Range(1, int.MaxValue, ErrorMessage = "Please enter a value bigger the {1}")]
+        public int Count { get; set; }
     }
 }
