@@ -9,71 +9,73 @@
 <form method="post">
     @if (Model.ShoppingCarts.Count > 0)
     {
-    <div class="thumbnail row">
-        <table>
-            <tr>
-                <th></th>
-                <th style="width:70px; text-align:center">
-                    @Html.LabelFor(w => w.ShoppingCarts.FirstOrDefault().Products.Price)
-                </th>
-                <th style="width:70px; text-align:center">
-                    @Html.LabelFor(w => w.ShoppingCarts.FirstOrDefault().Count)
-                </th>
-                <th></th>
-            </tr>
-            @foreach (var item in Model.ShoppingCarts)
-            {
-                <tr style="border-bottom:1px solid #e9e4e4"></tr>
-                <tr class="paddingB30pxToTD">
-                    <td>
-                        <b>@Html.DisplayFor(c => item.Products.Name)</b>
-                        <br />
-                        <b>@Html.DisplayFor(c => item.Products.Description)</b>
-
-                    </td>
-                    
-                    <td style="width:70px; text-align:center">
-                        <b>@Html.DisplayFor(c => item.Products.Price)</b>
-                    </td>
-                    <td style="width:70px; text-align:center">
-                        <b>@Html.DisplayFor(c => item.Count)</b>
-                    </td>
+        <div class="thumbnail row">
+            <table>
+                <tr>
+                    <th></th>
+                    <th style="width:70px; text-align:center">
+                        @Html.LabelFor(w => w.ShoppingCarts.FirstOrDefault().Products.Price)
+                    </th>
+                    <th style="width:70px; text-align:center">
+                        @Html.LabelFor(w => w.ShoppingCarts.FirstOrDefault().Count)
+                    </th>
+                    <th></th>
                 </tr>
+                @foreach (var item in Model.ShoppingCarts)
+                {
+                    <tr style="border-bottom:1px solid #e9e4e4"></tr>
+                    <tr class="paddingB30pxToTD">
+                        <td>
+                            <b>@Html.DisplayFor(c => item.Products.Name)</b>
+                            <br />
+                            <b>@Html.DisplayFor(c => item.Products.Description)</b>
+                        </td>
 
-            }
-        </table>
-        <hr />
-        <div class="row">
-            <div class="col-sm-2">
-                <label class="custom-label">Order Total :</label>
-            </div>
-            <div class="col-sm-3">
-                @Html.LabelFor(w => w.OrderHeader.OrderTotal) :
-                @Html.DisplayFor(w => w.OrderHeader.OrderTotal)
-            </div>
-        </div>
+                        <td style="width:70px; text-align:center">
+                            <b>@Html.DisplayFor(c => item.Products.Price)</b>
+                        </td>
+                        <td style="width:70px; text-align:center">
+                            <b>@Html.DisplayFor(c => item.Count)</b>
+                        </td>
+                        <td>
+                            @Html.ActionLink("+", "PlusProduct", "ShoppingCart", new { id = item.Id }, new { @class = "btn btn-sm btn-success glyphicon" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("-", "MinusProduct", "ShoppingCart", new { id = item.Id }, new { @class = "btn btn-sm btn-danger glyphicon" })
+                        </td>
+                    </tr>
 
-        <div class="row">
-            <div class="col-sm-2">
-                <label class="custom-label">Comments :</label>
+                }
+            </table>
+            <hr />
+            <div class="row">
+                <div class="col-sm-2">
+                    <label class="custom-label">Order Total :</label>
+                </div>
+                <div class="col-sm-3">
+                    @Html.LabelFor(w => w.OrderHeader.OrderTotal) :
+                    @Html.DisplayFor(w => w.OrderHeader.OrderTotal)
+                </div>
             </div>
-            <div class="col-sm-10">
-                <textarea style="height:100px;" asp-for="@Model.OrderHeader.Comments" class="form-control"></textarea>
-            </div>
-        </div>
-        <div class="row" style="padding-top:5px;">
-            <div class="col-sm-2 col-sm-offset-2">
-                <label class="text-danger" id="lblShopClosed" style="display:none;">Restaurant is closed for the day.</label>
-            </div>
-            <div class="col-sm-5 text-right">
-                <button type="submit" id="btnPlaceOrder" value="Place Order" class="btn btn-success">Place Order</button>
-            </div>
-        </div>
 
-    </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <label class="custom-label">Comments :</label>
+                </div>
+                <div class="col-sm-10">
+                    <textarea style="height:100px;" asp-for="@Model.OrderHeader.Comments" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="row" style="padding-top:5px;">
+                <div class="col-sm-5 text-right">
+                    <button type="submit" id="btnPlaceOrder" value="Place Order" class="btn btn-success">Place Order</button>
+                </div>
+            </div>
+
+        </div>
     }
     else
     {
-         <h3>No Items In Cart...</h3>
+        <h3>No Items In Cart...</h3>
     }
 </form>

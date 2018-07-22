@@ -1,17 +1,17 @@
 ﻿<ul class="nav navbar-nav navbar-right">
     @if (User.Identity.IsAuthenticated)
     {
-        if (true) /*Model.ShoppingCarts.Count != 0*/
+        if (Session["cart"] != null) 
         {
             <li style="color:white;">
                 <a href="/ShoppingCart/Index">
                     <span class="glyphicon glyphicon-shopping-cart">
-                        &nbsp;(@*@Model.ShoppingCarts.Count*@)
+                        &nbsp;(@Session["count"])
                     </span>
                 </a>
             </li>
         }
-        else if (true) /*Model.ShoppingCarts.Count == 0*/
+        else if (Session["cart"] == null) 
         {
             <li style="color:white;">
                 <a href="/ShoppingCart/Index">

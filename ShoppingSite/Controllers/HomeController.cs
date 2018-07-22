@@ -1,6 +1,7 @@
 ﻿using ShoppingSite.Models;
 using ShoppingSite.Models.Entitys;
 using ShoppingSite.ViewModels;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Security.Claims;
@@ -26,10 +27,11 @@ namespace ShoppingSite.Controllers
         {
             var products = _dbContext.Products.Include(w => w.CategoryType).ToList();
 
-            //var productVM = new ProductsViewModel()
-            //{
-            //    Products = products
-            //};
+            var shoppingCart = _dbContext.ShoppingCart.ToList();
+
+            Session["cart"] = shoppingCart;
+            var cnt = Session["count"] = shoppingCart.Count;
+            cnt = Convert.ToInt32(Session["count"]) + 1;
 
             if (User.IsInRole(StaticRoles.IsAdmin) || User.Identity.IsAuthenticated) //TODO remove OR
             {
@@ -85,7 +87,7 @@ namespace ShoppingSite.Controllers
                     Where(w => w.ApplicationUserId == cartObj.ApplicationUserId && w.ProductsId == cartObj.ProductsId)
                     .FirstOrDefault();
 
-                
+
 
                 if (shoppingCartDb == null)
                 {
