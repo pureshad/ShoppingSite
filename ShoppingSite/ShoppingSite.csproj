@@ -270,6 +270,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\OrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\ProductsViewModel.cs" />
+    <Compile Include="ViewModels\ShoppingCartViewModel.cs" />
     <Compile Include="ViewModels\UsersViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

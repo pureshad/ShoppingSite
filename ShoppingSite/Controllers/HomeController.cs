@@ -3,6 +3,7 @@ using ShoppingSite.Models.Entitys;
 using ShoppingSite.ViewModels;
 using System.Data.Entity;
 using System.Linq;
+using System.Security.Claims;
 using System.Web.Mvc;
 
 namespace ShoppingSite.Controllers
@@ -25,10 +26,16 @@ namespace ShoppingSite.Controllers
         {
             var products = _dbContext.Products.Include(w => w.CategoryType).ToList();
 
+            //var productVM = new ProductsViewModel()
+            //{
+            //    Products = products
+            //};
+
             if (User.IsInRole(StaticRoles.IsAdmin) || User.Identity.IsAuthenticated) //TODO remove OR
             {
                 return View(products);
             }
+
             return View("ReadOnlyIndex", products);
         }
 
@@ -53,6 +60,58 @@ namespace ShoppingSite.Controllers
             };
 
             return View("CreateProduct", productVM);
+        }
+
+        [Authorize(Roles = StaticRoles.IsAdmin)]
+        public ActionResult AddProduct(int? id)
+        {
+            var products = _dbContext.Products.Include(w => w.CategoryType).SingleOrDefault(w => w.Id == id);
+
+            var cartObj = new ShoppingCart
+            {
+                ProductsId = products.Id,
+                Products = products,
+                Count = +1
+            };
+
+            if (cartObj != null)
+            {
+
+                var claimsIdentity = (ClaimsIdentity)this.User.Identity;
+                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+                cartObj.ApplicationUserId = claim.Value;
+
+                ShoppingCart shoppingCartDb = _dbContext.ShoppingCart.
+                    Where(w => w.ApplicationUserId == cartObj.ApplicationUserId && w.ProductsId == cartObj.ProductsId)
+                    .FirstOrDefault();
+
+                
+
+                if (shoppingCartDb == null)
+                {
+                    _dbContext.ShoppingCart.Add(cartObj);
+                }
+                else
+                {
+                    shoppingCartDb.Count += cartObj.Count;
+                }
+
+                _dbContext.SaveChanges();
+            }
+            else
+            {
+                var productFromDb = _dbContext.Products.Include(w => w.CategoryType).FirstOrDefault();
+
+                cartObj = new ShoppingCart
+                {
+                    ProductsId = products.Id,
+                    Products = products
+                };
+                return View();
+
+            }
+
+            return RedirectToAction("Index", "ShoppingCart");
         }
 
         [HttpPost]

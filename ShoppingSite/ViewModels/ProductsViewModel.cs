@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
-using ShoppingSite.Models.Entitys;
+﻿using ShoppingSite.Models.Entitys;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

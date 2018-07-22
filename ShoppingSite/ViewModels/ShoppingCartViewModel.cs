@@ -1,20 +1,23 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ShoppingSite.Models;
+using ShoppingSite.Models.Entitys;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ShoppingSite.Models.Entitys
+namespace ShoppingSite.ViewModels
 {
-    public class ShoppingCart
+    public class ShoppingCartViewModel
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [Required]
         public string ApplicationUserId { get; set; }
 
-        public int ProductsId { get; set; }
+        public int? ProductsId { get; set; }
 
         [Required]
         public Products Products { get; set; }
 
+        [Required]
         [NotMapped]
         public ApplicationUser ApplicationUser { get; set; }
 
@@ -22,5 +25,6 @@ namespace ShoppingSite.Models.Entitys
 
         [Range(1, int.MaxValue, ErrorMessage = "Please enter a value bigger the {1}")]
         public int Count { get; set; }
+
     }
 }

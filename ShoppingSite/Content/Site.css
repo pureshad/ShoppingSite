@@ -55,3 +55,20 @@ label.error {
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
 }
+.custom-label {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.4285;
+    color: #555;
+}
+
+.paddingB30pxToTD > td {
+    padding: 10px 20px 10px 20px;
+}
+
+.paddingB30pxToTH > th {
+    padding: 0 20px 0 20px;
+}
