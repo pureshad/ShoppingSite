@@ -23,6 +23,8 @@ namespace ShoppingSite
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap-lumenV3.css",
+                      "~/Content/bootstrap-site-theme.css",
+                      "~/Content/font-awesome.css",
                       "~/Content/site.css"));
         }
     }

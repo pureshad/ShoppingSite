@@ -198,6 +198,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -239,6 +240,22 @@
     <Compile Include="Migrations\201807181121538_AddedTables_OrderDetail_OrderHeader1.Designer.cs">
       <DependentUpon>201807181121538_AddedTables_OrderDetail_OrderHeader1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807231028493_RegeisterModel_FName_LName_PNumberAdded.cs" />
+    <Compile Include="Migrations\201807231028493_RegeisterModel_FName_LName_PNumberAdded.Designer.cs">
+      <DependentUpon>201807231028493_RegeisterModel_FName_LName_PNumberAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807231318192_addedFK_ProductId.cs" />
+    <Compile Include="Migrations\201807231318192_addedFK_ProductId.Designer.cs">
+      <DependentUpon>201807231318192_addedFK_ProductId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807291014475_FKUserId.cs" />
+    <Compile Include="Migrations\201807291014475_FKUserId.Designer.cs">
+      <DependentUpon>201807291014475_FKUserId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807291017568_FKOrderId.cs" />
+    <Compile Include="Migrations\201807291017568_FKOrderId.Designer.cs">
+      <DependentUpon>201807291017568_FKOrderId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountEntitys\ForgotPasswordViewModel.cs" />
     <Compile Include="Models\AccountEntitys\ExternalLoginConfirmationViewModel.cs" />
@@ -268,6 +285,7 @@
     <Compile Include="Models\StaticRoles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\OrderDetailsCartViewModel.cs" />
     <Compile Include="ViewModels\OrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\ProductsViewModel.cs" />
     <Compile Include="ViewModels\ShoppingCartViewModel.cs" />
@@ -275,10 +293,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-lumenV3.css" />
+    <Content Include="Content\bootstrap-site-theme.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -342,6 +362,10 @@
     <Content Include="Views\Home\ReadOnlyIndex.cshtml" />
     <Content Include="Views\Shared\_CartPartial.cshtml" />
     <Content Include="Views\ShoppingCart\Index.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\ShoppingCart\OrderConfirmation.cshtml" />
+    <Content Include="Views\Shared\_IndevidualOrderDetails.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -387,6 +411,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807181121538_AddedTables_OrderDetail_OrderHeader1.resx">
       <DependentUpon>201807181121538_AddedTables_OrderDetail_OrderHeader1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807231028493_RegeisterModel_FName_LName_PNumberAdded.resx">
+      <DependentUpon>201807231028493_RegeisterModel_FName_LName_PNumberAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807231318192_addedFK_ProductId.resx">
+      <DependentUpon>201807231318192_addedFK_ProductId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807291014475_FKUserId.resx">
+      <DependentUpon>201807291014475_FKUserId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807291017568_FKOrderId.resx">
+      <DependentUpon>201807291017568_FKOrderId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

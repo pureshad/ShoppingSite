@@ -1,0 +1,36 @@
+﻿@model ShoppingSite.ViewModels.OrderDetailsViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Order Hystory</h2>
+
+<div>
+    @if (Model.OrderDetailsViewModels.Count == 5)
+    {
+        foreach (var item in Model.OrderDetails)
+        {
+            if (item.Count == 5)
+            {
+                @Html.ActionLink("Order Hystory", "Index", "Order", new { id = item.OrderHeader.Id, @class = "form-control btn btn-primary" })
+            }
+
+        }
+    }
+</div>
+<br />
+@if (Model.OrderDetailsViewModels.Count > 0)
+{
+    foreach (var item in Model.OrderDetailsViewModels)
+    {
+        <div class="thumbnail row">
+            @Html.Partial("_IndevidualOrderDetails", item)
+        </div>
+    }
+}
+else
+{
+    <p>No Orders Available..</p>
+}

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ShoppingSite.Models.Entitys
 {
@@ -10,11 +11,13 @@ namespace ShoppingSite.Models.Entitys
         [Required]
         public int OrderId { get; set; }
 
+        [ForeignKey("OrderId")]
         public virtual OrderHeader OrderHeader { get; set; }
 
         [Required]
-        public int MenuItemId { get; set; }
+        public int ProductsId { get; set; }
 
+        [ForeignKey("ProductsId")]
         public virtual Products Products { get; set; }
 
         [Required]

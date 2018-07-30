@@ -71,5 +71,42 @@ namespace ShoppingSite.Controllers
 
             return RedirectToAction("Index", "User");
         }
+
+        public ActionResult Edit(int? id)
+        {
+            var user = _dbContext.User.SingleOrDefault(w => w.Id == id);
+
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+
+            var userVM = new UsersViewModel
+            {
+                User = user
+            };
+
+            return View("Edit", userVM);
+        }
+
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            var userInDb = _dbContext.User.Find(id);
+
+            if (userInDb == null)
+            {
+                return HttpNotFound();
+            }
+
+            _dbContext.User.Remove(userInDb);
+            _dbContext.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

@@ -1,0 +1,20 @@
+﻿body {
+    color: #8f8b88;
+    background-color: #e4dbd4;
+    font-size: 16px;
+}
+
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+    border-color: #ca5252;
+}
+
+.navbar-inverse {
+    background-color: #f4f7f6;
+    border-color: #fadec6;
+}
+    .navbar-inverse .navbar-nav > li > a {
+        color: #840707;
+    }
+    .navbar-inverse .navbar-brand {
+        color: #a23007;
+    }

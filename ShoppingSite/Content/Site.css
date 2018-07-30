@@ -47,6 +47,11 @@ label.error {
     width: 100%;
     max-width: 400px;
     height: auto;
+    height: 200px;
+    width: 180px;
+    border-radius: 5px;
+    border: 1px solid #bbb9b9;
+    background-color: #ffffff;
 }
 
 #content {
@@ -71,4 +76,8 @@ label.error {
 
 .paddingB30pxToTH > th {
     padding: 0 20px 0 20px;
+}
+
+.p {
+    font-size:34px;
 }

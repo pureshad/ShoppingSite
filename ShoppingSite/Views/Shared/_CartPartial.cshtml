@@ -3,7 +3,7 @@
     {
         if (Session["cart"] != null) 
         {
-            <li style="color:white;">
+            <li>
                 <a href="/ShoppingCart/Index">
                     <span class="glyphicon glyphicon-shopping-cart">
                         &nbsp;(@Session["count"])
@@ -13,7 +13,7 @@
         }
         else if (Session["cart"] == null) 
         {
-            <li style="color:white;">
+            <li>
                 <a href="/ShoppingCart/Index">
                     <span class="glyphicon glyphicon-shopping-cart">
                         &nbsp;(0)

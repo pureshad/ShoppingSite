@@ -43,34 +43,10 @@
         </div>
         <div class="form-group row">
             <div class="col-sm-4">
-                <label class="custom-label">Details:</label>
+                <p>Details:</p>
             </div>
             <div class="col-sm-8">
-                <label class="custom-label"> @Html.DisplayFor(w => w.Description)</label>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <div class="col-sm-4">
-                <label class="custom-label">Select Amount:</label>
-            </div>
-            <div class="col-sm-8">
-                <label class="custom-label"> @*@Html.DisplayFor(w => )*@</label>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <div class="col-md-4">
-                <a href="/Home/Index" type="button" class="btn btn-sm btn-primary">Back To List</a>
-
-                @if (User.IsInRole(StaticRoles.IsAdmin))
-                {
-                    @Html.ActionLink("Edit", "Edit", "Home", new { id = Model.Id }, new { @class = "btn btn-sm btn-success" })
-                    @Html.ActionLink("Delete", "Delete", "Home", new { id = Model.Id }, new { @class = "btn btn-sm btn-danger" })
-                }
-            </div>
-            <div class="col-md-8">
-                @Html.ActionLink("Cart", "AddProduct", "Home", new { id = Model.Id }, new { @class = "btn btn-primary glyphicon glyphicon-shopping-cart" })
+                <p> @Html.DisplayFor(w => w.Description)</p>
             </div>
         </div>
     </div>
@@ -78,5 +54,23 @@
     <div class="col-sm-3 col-sm-offset-0">
         <img class="responsive" src="~/Images/@Model.Image" style="width:350px; height:350px;" alt="image cap">
     </div>
+    <div class="col-sm-11">
+        <a href="/Home/Index" type="button" class="btn btn-sm btn-primary">Back To List</a>
+
+        @if (User.IsInRole(StaticRoles.IsAdmin))
+        {
+            @Html.ActionLink("Edit", "Edit", "Home", new { id = Model.Id }, new { @class = "btn btn-sm btn-success" })
+            @Html.ActionLink("Delete", "Delete", "Home", new { id = Model.Id }, new { @class = "btn btn-sm btn-danger",
+                                                                onclick = "return confirm('are you sure you want to delete this item?')" })
+        }
+
+    </div>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="col-sm-1">
+            @Html.ActionLink("Cart", "AddProduct", "Home", new { id = Model.Id }, new { @class = "btn btn-primary glyphicon glyphicon-plus" })
+        </div>
+    }
+
 </div>
 @Html.HiddenFor(q => q.Id)

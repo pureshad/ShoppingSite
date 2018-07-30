@@ -14,17 +14,22 @@
                 <td>Last Name</td>
                 <td>Birth Date</td>
                 <td>Email</td>
+                <td>Edit</td>
+                <td>Delete</td>
             </tr>
         </thead>
         <tbody>
             @foreach (var user in Model)
             {
-                <tr>
-                    <th>@user.FirstName</th>
-                    <th>@user.LastName</th>
-                    <th>@user.BirthDate</th>
-                    <th>@user.Email</th>
-                </tr>
+            <tr>
+                <th>@user.FirstName</th>
+                <th>@user.LastName</th>
+                <th>@user.BirthDate</th>
+                <th>@user.Email</th>
+                <th>@Html.ActionLink("Edit ", "Edit", "User", new { id = user.Id }, new { @class = "btn btn-success btn-sm glyphicon glyphicon-edit" })</th>
+                <th>@Html.ActionLink("Delete ", "Delete", "User", new { id = user.Id }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-trash",
+                                                                                            onclick = "return confirm('are you sure you want to delete this user?')" })</th>
+            </tr>
             }
         </tbody>
     </table>

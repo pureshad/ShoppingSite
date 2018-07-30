@@ -1,0 +1,46 @@
+﻿@model ShoppingSite.ViewModels.OrderDetailsViewModel
+
+<div class=" col-sm-5">
+    Order Numder : @Model.OrderHeader.Id
+
+    <ul>
+        @foreach (var details in Model.OrderDetails)
+        {
+            <li>
+                @details.Name x @details.Count
+                <hr />
+            </li>
+        }
+    </ul>
+</div>
+<div class=" col-sm-5">
+    <div class="row">
+        <div class="col-sm-4 col-sm-offset-2">
+            Order Total:
+        </div>
+        <div class="col-sm-6">
+            @Model.OrderHeader.OrderTotal$
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 col-sm-offset-2">
+            Ordered at:
+        </div>
+        <div class="col-sm-6">
+            @Model.OrderHeader.OrderDate.ToString()&nbsp;
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 col-sm-offset-2">
+            Comments:
+        </div>
+        <div class="col-sm-6">
+            @Model.OrderHeader.Comments
+        </div>
+    </div>
+</div>
+<div class=" col-sm-2">
+    <div>
+
+    </div>
+</div>

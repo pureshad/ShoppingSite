@@ -10,10 +10,16 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                <li>
+                    <a href="/Home/Index"><span class="glyphicon glyphicon-home"></span></a>
+                </li>
                 @if (User.IsInRole("IsAdmin"))
                 {
-                    <li>@Html.ActionLink("User", "Index", "User")</li>
+                    @*<li>@Html.ActionLink("User", "Index", "User")</li>*@
+                    <li><a href="/User"><span class="glyphicon glyphicon-user"></span></a></li>
+                    <li>
+                        <a href="/Order/Index">Order Details</a>
+                    </li>
                 }
             </ul>
             @Html.Partial("_LoginPartial")

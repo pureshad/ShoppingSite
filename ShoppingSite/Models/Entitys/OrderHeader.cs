@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ShoppingSite.Models.Entitys
 {
@@ -11,10 +12,11 @@ namespace ShoppingSite.Models.Entitys
         [Required]
         public string UserId { get; set; }
 
+        [ForeignKey("UserId")]
         public virtual ApplicationUser ApplicationUser { get; set; }
 
         [Required]
-        public DateTime OrderDate { get; set; }
+        public DateTime? OrderDate { get; set; }
 
         [Required]
         public double OrderTotal { get; set; }

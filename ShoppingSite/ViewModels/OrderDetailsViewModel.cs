@@ -5,7 +5,8 @@ namespace ShoppingSite.ViewModels
 {
     public class OrderDetailsViewModel
     {
-        public List<ShoppingCart> ShoppingCarts { get; set; }
+        public List<OrderDetailsViewModel> OrderDetailsViewModels { get; set; }
+        public List<OrderDetail> OrderDetails { get; set; }
         public OrderHeader OrderHeader { get; set; }
     }
 }

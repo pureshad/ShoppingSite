@@ -3,6 +3,7 @@ using ShoppingSite.Models.Entitys;
 using ShoppingSite.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Security.Claims;
 using System.Web.Mvc;
@@ -25,7 +26,7 @@ namespace ShoppingSite.Controllers
 
         public ActionResult Index()
         {
-            var CartDetailsVM = new OrderDetailsViewModel
+            var CartDetailsVM = new OrderDetailsCartViewModel
             {
                 OrderHeader = new OrderHeader()
             };
@@ -105,5 +106,67 @@ namespace ShoppingSite.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public ActionResult PlaceOrder()
+        {
+
+            var claimIdentity = (ClaimsIdentity)this.User.Identity;
+            var claim = claimIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            var shoppingCart = _dbContext.ShoppingCart.Where(w => w.ApplicationUserId == claim.Value).ToList();
+
+            var CartDetailsVM = new OrderDetailsCartViewModel
+            {
+                ShoppingCarts = shoppingCart,
+                OrderHeader = new OrderHeader()
+            };
+
+            OrderHeader orderHeader = CartDetailsVM.OrderHeader;
+            CartDetailsVM.OrderHeader.OrderDate = DateTime.Now;
+            CartDetailsVM.OrderHeader.UserId = claim.Value;
+            _dbContext.OrderHeaders.Add(orderHeader);
+            _dbContext.SaveChanges();
+
+            foreach (var item in CartDetailsVM.ShoppingCarts)
+           {
+                item.Products = _dbContext.Products.FirstOrDefault(w => w.Id == item.ProductsId);
+                CartDetailsVM.OrderHeader.OrderTotal += (item.Products.Price * item.Count);
+
+                OrderDetail orderDetail = new OrderDetail()
+                {
+                    ProductsId = item.ProductsId,
+                    OrderId = orderHeader.Id,
+                    Name = item.Products.Name,
+                    Price = item.Products.Price,
+                    Count = item.Count,
+                    Description = item.Products.Description
+                };
+
+                _dbContext.OrderDetails.Add(orderDetail);
+            }
+            _dbContext.ShoppingCart.RemoveRange(CartDetailsVM.ShoppingCarts);
+
+            Session["cart"] = CartDetailsVM.ShoppingCarts;
+            var cnt = Session["count"] = CartDetailsVM.ShoppingCarts.Count;
+            cnt = Convert.ToInt32(Session["count"]);
+            cnt = 0;
+
+            _dbContext.SaveChanges();
+
+            return RedirectToAction("OrderConfirmation", new { id = orderHeader.Id });
+        }
+
+        public ActionResult OrderConfirmation(int id)
+        {
+            var claimIdentity = (ClaimsIdentity)this.User.Identity;
+            var claim = claimIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            var orderDetailsVM = new OrderDetailsViewModel()
+            {
+                OrderHeader = _dbContext.OrderHeaders.Where(w => w.Id == id).FirstOrDefault(),
+                OrderDetails = _dbContext.OrderDetails.Where(w => w.OrderId == id).ToList()
+            };
+
+            return View(orderDetailsVM);
+        }
     }
 }
