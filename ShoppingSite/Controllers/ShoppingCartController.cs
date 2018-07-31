@@ -75,6 +75,7 @@ namespace ShoppingSite.Controllers
             }
 
             var shoppingCartItem = _dbContext.ShoppingCart.Where(w => w.Id == id).FirstOrDefault();
+
             shoppingCartItem.Count++;
 
             _dbContext.SaveChanges();
@@ -109,10 +110,10 @@ namespace ShoppingSite.Controllers
         [HttpPost]
         public ActionResult PlaceOrder()
         {
-
             var claimIdentity = (ClaimsIdentity)this.User.Identity;
             var claim = claimIdentity.FindFirst(ClaimTypes.NameIdentifier);
             var shoppingCart = _dbContext.ShoppingCart.Where(w => w.ApplicationUserId == claim.Value).ToList();
+
 
             var CartDetailsVM = new OrderDetailsCartViewModel
             {
@@ -124,13 +125,15 @@ namespace ShoppingSite.Controllers
             CartDetailsVM.OrderHeader.OrderDate = DateTime.Now;
             CartDetailsVM.OrderHeader.UserId = claim.Value;
             CartDetailsVM.OrderHeader.Status = StaticDetails.StatusSubmited;
+
             _dbContext.OrderHeaders.Add(orderHeader);
             _dbContext.SaveChanges();
 
             foreach (var item in CartDetailsVM.ShoppingCarts)
-           {
+            {
                 item.Products = _dbContext.Products.FirstOrDefault(w => w.Id == item.ProductsId);
                 CartDetailsVM.OrderHeader.OrderTotal += (item.Products.Price * item.Count);
+
 
                 OrderDetail orderDetail = new OrderDetail()
                 {
@@ -139,8 +142,16 @@ namespace ShoppingSite.Controllers
                     Name = item.Products.Name,
                     Price = item.Products.Price,
                     Count = item.Count,
-                    Description = item.Products.Description
+                    Description = item.Products.Description,
+                    OrderHeader = orderHeader.Comments
                 };
+
+                item.Products.NumberAvailable--;
+
+                if (item.Products.NumberAvailable == 0)
+                {
+                    item.Products.IsAvailableInStock = false;
+                }
 
                 _dbContext.OrderDetails.Add(orderDetail);
             }
@@ -161,11 +172,17 @@ namespace ShoppingSite.Controllers
             var claimIdentity = (ClaimsIdentity)this.User.Identity;
             var claim = claimIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
+            var shoppingCart = _dbContext.ShoppingCart.Where(w => w.ApplicationUserId == claim.Value).ToList();
+
             var orderDetailsVM = new OrderDetailsViewModel()
             {
                 OrderHeader = _dbContext.OrderHeaders.Where(w => w.Id == id).FirstOrDefault(),
                 OrderDetails = _dbContext.OrderDetails.Where(w => w.OrderId == id).ToList()
             };
+
+            Session["cart"] = shoppingCart;
+            var cnt = Session["count"] = shoppingCart.Count;
+            cnt = Convert.ToInt32(Session["count"]);
 
             return View(orderDetailsVM);
         }

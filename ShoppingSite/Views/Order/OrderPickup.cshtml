@@ -1,0 +1,67 @@
+﻿@model ShoppingSite.ViewModels.OrderDetailsViewModel
+@using ShoppingSite.Models
+
+@{
+    ViewBag.Title = "OrderPickup";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>OrderPickup</h2>
+
+<form method="get">
+    <div style="height:60px;">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-12 text-right">
+                    <label class="radio-inline">
+                        @Html.RadioButton("option", "name") Name
+                    </label>
+                    <label class="radio-inline">
+                        @Html.RadioButton("option", "email") Email
+                    </label>
+                    <label class="radio-inline">
+                        @Html.RadioButton("option", "phonenumber") PhoneNumber
+                    </label>
+                    <label class="radio-inline">
+                        @Html.RadioButton("option", "order") Order no
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="pull-right">
+                    <button type="submit" value="Search" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-search"></span> Search
+                    </button>
+                </div>
+                <div class="pull-right">
+                    @Html.Editor("search", new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <br />
+    @if (Model.OrderDetailsViewModels.Count > 0)
+    {
+        foreach (var item in Model.OrderDetailsViewModels)
+        {
+            <div class="thumbnail row">
+                @Html.Partial("_IndevidualOrderDetails", item)
+                <div class="col-sm-2">
+                    @if (item.OrderHeader.Status.Equals(StaticDetails.StatusReady))
+                    {
+                        @Html.ActionLink("Order Details", "OrderPickupDetails", "Order",new { id = Model.OrderHeader.Id }, new { @class = "btn btn-success glyphicon glyphicon-list" })
+                    }
+                    else
+                    {
+                        <button type="submit" disabled class="btn btn-primary">@item.OrderHeader.Status</button>
+                    }
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>No Orders Availvable...</p>
+    }
+</form>

@@ -147,10 +147,14 @@ namespace ShoppingSite.Controllers
                 productInDb.Image = products.Image;
                 productInDb.CategoryTypeId = products.CategoryTypeId;
                 productInDb.Brand = products.Brand;
-                productInDb.IsAvailableInStock = products.IsAvailableInStock;
                 productInDb.NumberAvailable = products.NumberAvailable;
                 productInDb.StrapQuality = products.StrapQuality;
                 productInDb.Price = products.Price;
+
+                if (productInDb.NumberAvailable >= 1)
+                {
+                    productInDb.IsAvailableInStock = true;
+                }
             }
 
             _dbContext.SaveChanges();

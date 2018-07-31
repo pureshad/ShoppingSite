@@ -29,7 +29,7 @@ namespace ShoppingSite.Models.Entitys
 
         public bool IsAvailableInStock { get; set; }
 
-        [Required, Range(1, 250)]
+        [Required, Range(0, 250)]
         [Display(Name = "Number in Stock")]
         public byte NumberAvailable { get; set; }
 

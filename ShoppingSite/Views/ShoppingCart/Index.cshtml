@@ -38,9 +38,19 @@
                         <td style="width:70px; text-align:center">
                             <b>@Html.DisplayFor(c => item.Count)</b>
                         </td>
-                        <td>
-                            @Html.ActionLink("+", "PlusProduct", "ShoppingCart", new { id = item.Id }, new { @class = "btn btn-sm btn-success glyphicon" })
-                        </td>
+                        @if (item.Products.NumberAvailable < 1 || item.Products.NumberAvailable == 1)
+                        {
+                            <td>
+                                <button class="btn btn-sm btn-success glyphicon glyphicon-plus" disabled></button>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @Html.ActionLink("+", "PlusProduct", "ShoppingCart", new { id = item.Id }, new { @class = "btn btn-sm btn-success glyphicon" })
+                            </td>
+
+                        }
                         <td>
                             @Html.ActionLink("-", "MinusProduct", "ShoppingCart", new { id = item.Id }, new { @class = "btn btn-sm btn-danger glyphicon" })
                         </td>
@@ -64,7 +74,8 @@
                     <label class="custom-label">Comments :</label>
                 </div>
                 <div class="col-sm-10">
-                    <textarea style="height:100px;" asp-for="@Model.OrderHeader.Comments" class="form-control"></textarea>
+                    @Html.TextAreaFor(w => w.OrderHeader.Comments, new { @class = "form-control" })
+
                 </div>
             </div>
             <div class="row" style="padding-top:5px;">

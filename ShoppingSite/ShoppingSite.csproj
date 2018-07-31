@@ -373,6 +373,8 @@
     <Content Include="Views\Shared\_IndevidualOrderDetails.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\ManageOrder\Index.cshtml" />
+    <Content Include="Views\Order\OrderPickupDetails.cshtml" />
+    <Content Include="Views\Order\OrderPickup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

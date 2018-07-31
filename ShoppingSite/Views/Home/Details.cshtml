@@ -31,7 +31,6 @@
             <div class="col-sm-4">
                 <p>Strap Quality: @Html.DisplayFor(w => w.StrapQuality)</p>
             </div>
-
             <div class="col-sm-8">
                 <p>Quantity Available : @Html.DisplayFor(w => w.NumberAvailable)</p>
             </div>
@@ -54,7 +53,7 @@
     <div class="col-sm-3 col-sm-offset-0">
         <img class="responsive" src="~/Images/@Model.Image" style="width:350px; height:350px;" alt="image cap">
     </div>
-    <div class="col-sm-11">
+    <div class="col-sm-8">
         <a href="/Home/Index" type="button" class="btn btn-sm btn-primary">Back To List</a>
 
         @if (User.IsInRole(StaticRoles.IsAdmin))
@@ -65,10 +64,16 @@
         }
 
     </div>
-    @if (User.Identity.IsAuthenticated)
+    @if (User.Identity.IsAuthenticated && Model.IsAvailableInStock == true)
     {
         <div class="col-sm-1">
             @Html.ActionLink("Cart", "AddProduct", "Home", new { id = Model.Id }, new { @class = "btn btn-primary glyphicon glyphicon-plus" })
+        </div>
+    }
+    else
+    {
+        <div class="col-sm-3">
+            <h3 class="text-danger">Out Of Stock!</h3>
         </div>
     }
 

@@ -1,0 +1,107 @@
+﻿@model ShoppingSite.ViewModels.OrderDetailsViewModel
+@using ShoppingSite.Models
+
+@{
+    ViewBag.Title = "OrderPickupDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Order Pickup Details</h2>
+<br />
+
+<h3>Confirm Order Pickup</h3>
+
+
+<form method="post">
+    <div class="thumbnail row">
+        <div class="col-sm-8" style="border-right:1px solid #bbb9b9">
+            <br />
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    @Html.LabelFor(w => w.OrderHeader.ApplicationUser.FirstName, new { @class = "form-control", disabled = "disabled" })
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(w => w.OrderHeader.ApplicationUser.FirstName, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    @Html.LabelFor(w => w.OrderHeader.ApplicationUser.LastName, new { @class = "form-control", disabled = "disabled" })
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(w => w.OrderHeader.ApplicationUser.LastName, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    @Html.LabelFor(w => w.OrderHeader.ApplicationUser.Email, new { @class = "form-control", disabled = "disabled" })
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(w => w.OrderHeader.ApplicationUser.Email, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    @Html.LabelFor(w => w.OrderHeader.ApplicationUser.Phone, new { @class = "form-control", disabled = "disabled" })
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(w => w.OrderHeader.ApplicationUser.Phone, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    @Html.LabelFor(w => w.OrderHeader.OrderTotal, new { @class = "form-control", disabled = "disabled" })
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(w => w.OrderHeader.OrderTotal, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    @Html.LabelFor(w => w.OrderHeader.OrderDate, new { @class = "form-control", disabled = "disabled" })
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(w => w.OrderHeader.OrderDate, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    @Html.LabelFor(w => w.OrderHeader.Comments, new { @class = "form-control", disabled = "disabled" })
+                </div>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(w => w.OrderHeader.Comments, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-sm-4">
+            <br />
+            <div class="col-sm-4">
+                <h4>Order Number : @Html.TextBoxFor(w => w.OrderHeader.Id, new { @class = "form-control", disabled = "disabled" })</h4>
+            </div>
+            <div class="col-sm-12">
+                <ul>
+                    @foreach (var item in Model.OrderDetails)
+                    {
+                        <li class="list-group-item">
+                            <span class="badge">@item.Count</span>
+                            @item.Name
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="col-sm-12">
+                @if (Model.OrderHeader.Status.Equals(StaticDetails.StatusReady))
+                {
+                    @Html.ActionLink("Confirm Pickup", "ConfirmOrder", "Order", new { id = @Model.OrderHeader.Id }, new { @class = "form-control btn btn-success glyphicon glyphicon-check" })
+                }
+                else
+                {
+                    <button disabled class="btn btn-primary">@Model.OrderHeader.Status</button>
+                }
+            </div>
+        </div>
+    </div>
+</form>
+
