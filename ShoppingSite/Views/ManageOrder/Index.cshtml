@@ -1,0 +1,44 @@
+﻿@model ShoppingSite.ViewModels.OrderDetailsViewModel
+
+@using ShoppingSite.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Manage Order</h2>
+
+<form method="post">
+    @if (Model.OrderDetailsViewModels.Count > 0)
+    {
+        foreach (var item in Model.OrderDetailsViewModels)
+        {
+            <div class="thumbnail row">
+                @Html.Partial("_IndevidualOrderDetails", item)
+                <div class="col-sm-2">
+                    @if (item.OrderHeader.Status.Equals(StaticDetails.StatusSubmited))
+                    {
+                        @Html.ActionLink("Prepare", "OnPostOrderPrepare", "ManageOrder",
+                       new { id = item.OrderHeader.Id },
+                       new { @class = "btn btn-primary form-control glyphicon glyphicon-ok" })
+
+                        @Html.ActionLink("Cancel Order", "OnPostOrderCancel", "ManageOrder",
+                        new { id = item.OrderHeader.Id },
+                        new { @class = "btn btn-danger form-control glyphicon glyphicon-remove" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Order Ready", "OnPostOrderReady", "ManageOrder",
+                       new { id = item.OrderHeader.Id },
+                       new { @class = "btn btn-primary form-control glyphicon glyphicon-cutlery" })
+
+                        @Html.ActionLink("Cancel Order", "OnPostOrderCancel", "ManageOrder",
+                        new { id = item.OrderHeader.Id },
+                        new { @class = "btn btn-danger form-control glyphicon glyphicon-remove" })
+
+                    }
+                </div>
+            </div>
+        }
+    }
+</form>

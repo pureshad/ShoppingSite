@@ -81,3 +81,8 @@ label.error {
 .p {
     font-size:34px;
 }
+
+.submited{
+    color:lawngreen;
+    /*background-color:green;*/
+}

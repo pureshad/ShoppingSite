@@ -198,6 +198,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ManageOrderController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -256,6 +257,10 @@
     <Compile Include="Migrations\201807291017568_FKOrderId.Designer.cs">
       <DependentUpon>201807291017568_FKOrderId.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807301429086_OrderHeader_AddedColumnStatus.cs" />
+    <Compile Include="Migrations\201807301429086_OrderHeader_AddedColumnStatus.Designer.cs">
+      <DependentUpon>201807301429086_OrderHeader_AddedColumnStatus.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountEntitys\ForgotPasswordViewModel.cs" />
     <Compile Include="Models\AccountEntitys\ExternalLoginConfirmationViewModel.cs" />
@@ -282,6 +287,7 @@
     <Compile Include="Models\AccountEntitys\VerifyCodeViewModel.cs" />
     <Compile Include="Models\ManageEntitys\SetPasswordViewModel.cs" />
     <Compile Include="Models\ManageEntitys\VerifyPhoneNumberViewModel.cs" />
+    <Compile Include="Models\StaticDetails.cs" />
     <Compile Include="Models\StaticRoles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -366,6 +372,7 @@
     <Content Include="Views\ShoppingCart\OrderConfirmation.cshtml" />
     <Content Include="Views\Shared\_IndevidualOrderDetails.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\ManageOrder\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -423,6 +430,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807291017568_FKOrderId.resx">
       <DependentUpon>201807291017568_FKOrderId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807301429086_OrderHeader_AddedColumnStatus.resx">
+      <DependentUpon>201807301429086_OrderHeader_AddedColumnStatus.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

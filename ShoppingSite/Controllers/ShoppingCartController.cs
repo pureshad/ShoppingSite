@@ -123,6 +123,7 @@ namespace ShoppingSite.Controllers
             OrderHeader orderHeader = CartDetailsVM.OrderHeader;
             CartDetailsVM.OrderHeader.OrderDate = DateTime.Now;
             CartDetailsVM.OrderHeader.UserId = claim.Value;
+            CartDetailsVM.OrderHeader.Status = StaticDetails.StatusSubmited;
             _dbContext.OrderHeaders.Add(orderHeader);
             _dbContext.SaveChanges();
 

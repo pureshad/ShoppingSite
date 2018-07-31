@@ -22,5 +22,7 @@ namespace ShoppingSite.Models.Entitys
         public double OrderTotal { get; set; }
 
         public string Comments { get; set; }
+
+        public string Status { get; set; }
     }
 }

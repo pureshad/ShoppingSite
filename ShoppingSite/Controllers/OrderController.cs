@@ -63,7 +63,6 @@ namespace ShoppingSite.Controllers
                 orderDetailsVM.OrderDetailsViewModels.Add(indevidual);
 
             }
-
             return View("Index", orderDetailsVM);
         }
     }
