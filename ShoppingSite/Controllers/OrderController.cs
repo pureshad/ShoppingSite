@@ -27,6 +27,7 @@ namespace ShoppingSite.Controllers
         }
 
         // GET: Order
+        [Authorize]
         public ActionResult Index(int? id)
         {
             var claimIdentity = (ClaimsIdentity)this.User.Identity;
@@ -66,6 +67,7 @@ namespace ShoppingSite.Controllers
             return View("Index", orderDetailsVM);
         }
 
+        [Authorize]
         public ActionResult OrderPickupDetails(int? id)
         {
             var orderDetailsVM = new OrderDetailsViewModel()
@@ -85,6 +87,7 @@ namespace ShoppingSite.Controllers
             return View(orderDetailsVM);
         }
 
+        [Authorize]
         public ActionResult OrderPickup(string option = null, string search = null)
         {
             var orderDetailsVM = new OrderDetailsViewModel()
@@ -171,6 +174,7 @@ namespace ShoppingSite.Controllers
             return View(orderDetailsVM);
         }
 
+        [Authorize]
         public ActionResult ConfirmOrder(int? id)
         {
             var orderHeader = _dbContext.OrderHeaders.Find(id);

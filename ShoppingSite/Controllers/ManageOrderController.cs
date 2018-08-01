@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace ShoppingSite.Controllers
 {
+    [Authorize]
     public class ManageOrderController : Controller
     {
         private readonly ApplicationDbContext _dbContext;
@@ -55,6 +56,7 @@ namespace ShoppingSite.Controllers
             return View(orderDetailsVM);
         }
 
+        [Authorize]
         public ActionResult OnPostOrderPrepare(int? Id)
         {
             var orderHeader = _dbContext.OrderHeaders.Find(Id);
@@ -64,6 +66,7 @@ namespace ShoppingSite.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         public ActionResult OnPostOrderCancel(int? Id)
         {
             var orderHeader = _dbContext.OrderHeaders.Find(Id);
@@ -73,6 +76,7 @@ namespace ShoppingSite.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         public ActionResult OnPostOrderReady(int? Id)
         {
             var orderHeader = _dbContext.OrderHeaders.Find(Id);

@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace ShoppingSite.Controllers
 {
+    [Authorize]
     public class ShoppingCartController : Controller
     {
         private readonly ApplicationDbContext _dbContext;
@@ -67,6 +68,7 @@ namespace ShoppingSite.Controllers
             cnt = Convert.ToInt32(Session["count"]) + 1;
         }
 
+        [Authorize]
         public ActionResult PlusProduct(int? id)
         {
             if (id == null)
@@ -84,6 +86,7 @@ namespace ShoppingSite.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         public ActionResult MinusProduct(int? id)
         {
             if (id == null)
@@ -108,6 +111,7 @@ namespace ShoppingSite.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult PlaceOrder()
         {
             var claimIdentity = (ClaimsIdentity)this.User.Identity;
@@ -142,8 +146,7 @@ namespace ShoppingSite.Controllers
                     Name = item.Products.Name,
                     Price = item.Products.Price,
                     Count = item.Count,
-                    Description = item.Products.Description,
-                    OrderHeader = orderHeader.Comments
+                    Description = item.Products.Description
                 };
 
                 item.Products.NumberAvailable--;
@@ -167,6 +170,7 @@ namespace ShoppingSite.Controllers
             return RedirectToAction("OrderConfirmation", new { id = orderHeader.Id });
         }
 
+        [Authorize]
         public ActionResult OrderConfirmation(int id)
         {
             var claimIdentity = (ClaimsIdentity)this.User.Identity;

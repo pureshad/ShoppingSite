@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<ShoppingSite.Models.Entitys.Products>
-
+@using ShoppingSite.Models
 
 @{
     ViewBag.Title = "Home Page";
@@ -35,7 +35,11 @@
                                             }
                                             <p class="card-text">@item.Brand</p>
                                             @Html.ActionLink("View", "Details", "Home", new { id = item.Id }, new { @class = "btn btn-sm btn-primary" })
-                                            @Html.ActionLink("Edit", "Edit", "Home", new { id = item.Id }, new { @class = "btn btn-sm btn-success" })
+
+                                            @if (User.IsInRole(StaticRoles.IsAdmin))
+                                            {
+                                                @Html.ActionLink("Edit", "Edit", "Home", new { id = item.Id }, new { @class = "btn btn-sm btn-success" })
+                                            }
                                         </div>
                                     </div>
                                 </div>

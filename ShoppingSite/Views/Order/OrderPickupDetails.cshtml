@@ -92,7 +92,7 @@
                 </ul>
             </div>
             <div class="col-sm-12">
-                @if (Model.OrderHeader.Status.Equals(StaticDetails.StatusReady))
+                @if (Model.OrderHeader.Status.Equals(StaticDetails.StatusReady) && User.Identity.Name == Model.OrderHeader.ApplicationUser.UserName)
                 {
                     @Html.ActionLink("Confirm Pickup", "ConfirmOrder", "Order", new { id = @Model.OrderHeader.Id }, new { @class = "form-control btn btn-success glyphicon glyphicon-check" })
                 }

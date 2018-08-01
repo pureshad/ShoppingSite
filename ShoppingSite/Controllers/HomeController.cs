@@ -64,7 +64,7 @@ namespace ShoppingSite.Controllers
             return View("CreateProduct", productVM);
         }
 
-        [Authorize(Roles = StaticRoles.IsAdmin)]
+        [Authorize]
         public ActionResult AddProduct(int? id)
         {
             var products = _dbContext.Products.Include(w => w.CategoryType).SingleOrDefault(w => w.Id == id);
