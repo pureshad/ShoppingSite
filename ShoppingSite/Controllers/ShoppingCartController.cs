@@ -2,8 +2,6 @@
 using ShoppingSite.Models.Entitys;
 using ShoppingSite.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Security.Claims;
 using System.Web.Mvc;
@@ -27,20 +25,24 @@ namespace ShoppingSite.Controllers
 
         public ActionResult Index()
         {
+            var claimIdentity = (ClaimsIdentity)this.User.Identity;
+            var claim = claimIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
             var CartDetailsVM = new OrderDetailsCartViewModel
             {
                 OrderHeader = new OrderHeader()
             };
 
+            CartDetailsVM.OrderHeader.OrderTotal = 0;
+
             var shoppingCart = _dbContext.ShoppingCart.ToList();
 
-            GetShoppingCartQuantity(shoppingCart);
-
-            CartDetailsVM.OrderHeader.OrderTotal = 0;
-            var claimIdentity = (ClaimsIdentity)this.User.Identity;
-            var claim = claimIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
             var cart = _dbContext.ShoppingCart.Where(w => w.ApplicationUserId == claim.Value);
+
+            Session["cart"] = shoppingCart;
+            var cnt = Session["count"] = shoppingCart.Count;
+            cnt = Convert.ToInt32(Session["count"]) + 1;
 
             if (cart != null)
             {
@@ -61,13 +63,6 @@ namespace ShoppingSite.Controllers
             return View(CartDetailsVM);
         }
 
-        private void GetShoppingCartQuantity(List<ShoppingCart> shoppingCart)
-        {
-            Session["cart"] = shoppingCart;
-            var cnt = Session["count"] = shoppingCart.Count;
-            cnt = Convert.ToInt32(Session["count"]) + 1;
-        }
-
         [Authorize]
         public ActionResult PlusProduct(int? id)
         {
@@ -81,7 +76,6 @@ namespace ShoppingSite.Controllers
             shoppingCartItem.Count++;
 
             _dbContext.SaveChanges();
-
 
             return RedirectToAction("Index");
         }
@@ -118,7 +112,6 @@ namespace ShoppingSite.Controllers
             var claim = claimIdentity.FindFirst(ClaimTypes.NameIdentifier);
             var shoppingCart = _dbContext.ShoppingCart.Where(w => w.ApplicationUserId == claim.Value).ToList();
 
-
             var CartDetailsVM = new OrderDetailsCartViewModel
             {
                 ShoppingCarts = shoppingCart,
@@ -137,7 +130,6 @@ namespace ShoppingSite.Controllers
             {
                 item.Products = _dbContext.Products.FirstOrDefault(w => w.Id == item.ProductsId);
                 CartDetailsVM.OrderHeader.OrderTotal += (item.Products.Price * item.Count);
-
 
                 OrderDetail orderDetail = new OrderDetail()
                 {

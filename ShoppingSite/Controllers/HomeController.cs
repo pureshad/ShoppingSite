@@ -29,12 +29,17 @@ namespace ShoppingSite.Controllers
 
             var shoppingCart = _dbContext.ShoppingCart.ToList();
 
-            Session["cart"] = shoppingCart;
-            var cnt = Session["count"] = shoppingCart.Count;
-            cnt = Convert.ToInt32(Session["count"]) + 1;
+            var claimsIdentity = (ClaimsIdentity)this.User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            var cart = _dbContext.ShoppingCart.Where(w => w.ApplicationUserId == claim.Value);
 
             if (User.IsInRole(StaticRoles.IsAdmin) || User.Identity.IsAuthenticated) //TODO remove OR
             {
+                Session["cart"] = shoppingCart;
+                var cnt = Session["count"] = cart.Count();
+                cnt = Convert.ToInt32(Session["count"]) + 1;
+
                 return View(products);
             }
 
@@ -78,7 +83,6 @@ namespace ShoppingSite.Controllers
 
             if (cartObj != null)
             {
-
                 var claimsIdentity = (ClaimsIdentity)this.User.Identity;
                 var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
                 cartObj.ApplicationUserId = claim.Value;
@@ -86,8 +90,6 @@ namespace ShoppingSite.Controllers
                 ShoppingCart shoppingCartDb = _dbContext.ShoppingCart.
                     Where(w => w.ApplicationUserId == cartObj.ApplicationUserId && w.ProductsId == cartObj.ProductsId)
                     .FirstOrDefault();
-
-
 
                 if (shoppingCartDb == null)
                 {
@@ -109,8 +111,8 @@ namespace ShoppingSite.Controllers
                     ProductsId = products.Id,
                     Products = products
                 };
-                return View();
 
+                return View();
             }
 
             return RedirectToAction("Index", "ShoppingCart");
@@ -137,7 +139,6 @@ namespace ShoppingSite.Controllers
             {
                 _dbContext.Products.Add(products);
             }
-
             else
             {
                 var productInDb = _dbContext.Products.Single(w => w.Id == products.Id);

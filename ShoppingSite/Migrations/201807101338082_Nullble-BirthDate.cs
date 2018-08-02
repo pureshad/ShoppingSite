@@ -1,8 +1,7 @@
 namespace ShoppingSite.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class NullbleBirthDate : DbMigration
     {
         public override void Up()

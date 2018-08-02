@@ -38,7 +38,7 @@
                         <td style="width:70px; text-align:center">
                             <b>@Html.DisplayFor(c => item.Count)</b>
                         </td>
-                        @if (item.Products.NumberAvailable < 1 || item.Products.NumberAvailable == 1)
+                        @if (item.Count >= item.Products.NumberAvailable || item.Products.NumberAvailable == 1)
                         {
                             <td>
                                 <button class="btn btn-sm btn-success glyphicon glyphicon-plus" disabled></button>
