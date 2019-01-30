@@ -261,6 +261,10 @@
     <Compile Include="Migrations\201807301429086_OrderHeader_AddedColumnStatus.Designer.cs">
       <DependentUpon>201807301429086_OrderHeader_AddedColumnStatus.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901071614135__AddedBirthDate.cs" />
+    <Compile Include="Migrations\201901071614135__AddedBirthDate.Designer.cs">
+      <DependentUpon>201901071614135__AddedBirthDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountEntitys\ForgotPasswordViewModel.cs" />
     <Compile Include="Models\AccountEntitys\ExternalLoginConfirmationViewModel.cs" />
@@ -309,8 +313,22 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\abstract-time-concept.jpg" />
+    <Content Include="Images\bigthumbnail.jpg" />
+    <Content Include="Images\bluebg.jpg" />
     <Content Include="Images\bossWatch.jpg" />
     <Content Include="Images\m_watches.jpg" />
+    <Content Include="RegistrationForm\css\bootstrap.css" />
+    <Content Include="RegistrationForm\css\style.css" />
+    <Content Include="RegistrationForm\images\banner1.png" />
+    <Content Include="RegistrationForm\images\banner2.png" />
+    <Content Include="RegistrationForm\images\content.jpg" />
+    <Content Include="RegistrationForm\images\TimeBack.jpg" />
+    <Content Include="RegistrationForm\index.html" />
+    <Content Include="RegistrationForm\js\bootstrap.min.js" />
+    <Content Include="RegistrationForm\js\jquery-1.10.2.min.js" />
+    <Content Include="RegistrationForm\js\validator.min.js" />
+    <Content Include="RegistrationForm\w3layouts-License.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -327,6 +345,14 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="SmartLogin\css\style.css" />
+    <Content Include="SmartLogin\images\arrow.png" />
+    <Content Include="SmartLogin\images\bg3.jpg" />
+    <Content Include="SmartLogin\images\mail.png" />
+    <Content Include="SmartLogin\images\pass.png" />
+    <Content Include="SmartLogin\images\TimeBack.jpg" />
+    <Content Include="SmartLogin\index.html" />
+    <Content Include="SmartLogin\w3layouts-License.txt" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -375,6 +401,8 @@
     <Content Include="Views\ManageOrder\Index.cshtml" />
     <Content Include="Views\Order\OrderPickupDetails.cshtml" />
     <Content Include="Views\Order\OrderPickup.cshtml" />
+    <Content Include="Views\Account\SmartLogin.cshtml" />
+    <Content Include="Views\Account\SignUp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -435,6 +463,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807301429086_OrderHeader_AddedColumnStatus.resx">
       <DependentUpon>201807301429086_OrderHeader_AddedColumnStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901071614135__AddedBirthDate.resx">
+      <DependentUpon>201901071614135__AddedBirthDate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

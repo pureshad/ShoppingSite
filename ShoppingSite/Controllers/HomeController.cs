@@ -2,10 +2,12 @@
 using ShoppingSite.Models.Entitys;
 using ShoppingSite.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Security.Claims;
 using System.Web.Mvc;
+using System.Web.Services;
 
 namespace ShoppingSite.Controllers
 {

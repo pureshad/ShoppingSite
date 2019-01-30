@@ -1,0 +1,77 @@
+﻿@using ShoppingSite.Models.AccountEntitys
+@model LoginViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Smart Login Form Responsive Widget Template:: W3layouts</title>
+    <!-- Meta tag Keywords -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Smart Login Form Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements" />
+    <script type="application/x-javascript">
+         addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+        function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- Meta tag Keywords -->
+    <!-- css files -->
+    <link href="~/SmartLogin/css/style.css" rel="stylesheet" type="text/css" media="all">
+    <!-- online-fonts -->
+    @*<link href="//fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900iSlabo+27px&subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">*@
+    <!--//online-fonts -->
+</head>
+<body>
+    @*<div class="agileheader">
+            <h1>Smart Login Form</h1>
+        </div>*@
+    <div class="main-w3l">
+        <div class="w3layouts-main">
+            <h2>Login Now</h2>
+            @using (Html.BeginForm("SmartLogin", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "E-Mail", @type = "email" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+
+                </div>
+                @* Enable this once you have account confirmation enabled for password reset functionality
+                    <p>
+                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                    </p>*@
+                <div class="clear"></div>
+                <span>@Html.CheckBoxFor(m => m.RememberMe)Remember Me</span>
+                <div class="col-md-offset-2 col-md-10">
+                    <div class="clear">
+                        <input type="submit" value="Log in" class="btn btn-default" />
+                    </div>
+                </div>
+            }
+            <p>
+                @Html.ActionLink("Don't Have an Account", "SignUp")
+            </p>
+            <hr />
+            <div>
+                @Html.ActionLink("Return To Home", "Index", "Home", new { area = "" }, new { @class = "btn btn-danger" })
+            </div>
+        </div>
+        @*<div class="col-md-4">
+                <section id="socialLoginForm">
+                    @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                </section>
+            </div>*@
+
+    </div>
+</body>
+</html>
+@*@section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@

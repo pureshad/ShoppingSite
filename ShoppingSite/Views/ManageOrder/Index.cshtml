@@ -7,7 +7,6 @@
 }
 
 <h2>Manage Order</h2>
-
 <form method="post">
     @if (Model.OrderDetailsViewModels.Count > 0)
     {
@@ -40,5 +39,9 @@
                 </div>
             </div>
         }
+    }
+    else
+    {
+          <h1>No Order Hystory</h1>
     }
 </form>

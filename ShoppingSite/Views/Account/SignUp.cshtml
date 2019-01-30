@@ -1,0 +1,79 @@
+﻿@model ShoppingSite.Models.AccountEntitys.RegisterViewModel
+@{
+    Layout = null;
+}
+
+<!doctype html>
+<html>
+<head>
+    <title>Authentication Signup Form Flat Responsive widget Template :: w3layouts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Validation Signup Form Responsive, Login form web template,Flat Pricing tables,Flat Drop downs  Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- fonts -->
+    <link href="/fonts.googleapis.com/css?family=Muli:300,400" rel="stylesheet">
+    <!-- /fonts -->
+    <!-- css -->
+    <link href="/RegistrationForm/css/bootstrap.css" rel="stylesheet" type='text/css' media="all" />
+    <link href="/RegistrationForm/css/style.css" rel="stylesheet" type='text/css' media="all" />
+    <!-- /css -->
+
+</head>
+
+<body>
+    <div class="">
+        <h1 class="w3ls">Register Form</h1>
+    </div>
+    <div class="content-agileits">
+        @using (Html.BeginForm("SignUp", "Account", FormMethod.Post, new { @data_toggle = "validator", @role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group w3layouts w3 w3l">
+                <label for="firstname" class="control-label">First Name</label>
+                @Html.TextBoxFor(w => w.FirstName, new { @class = "form-control", @placeholder = "First Name", @data_error = "Enter Your First Name" })
+                <div class="help-block with-errors"></div>
+            </div>
+            <div class="form-group agileits w3layouts w3">
+                <label for="lastname" class="control-label">Last Name</label>
+                @Html.TextBoxFor(w => w.LastName, new { @class = "form-control", @placeholder = "Last Name", @data_error = "Enter Your Last Name" })
+                <div class="help-block with-errors"></div>
+            </div>
+            <div class="form-group w3l agileinfo wthree w3-agileits">
+                <label for="inputEmail" class="control-label">Email</label>
+                @Html.TextBoxFor(w => w.Email, new { @class = "form-control", @placeholder = "Email", @data_error = "This email address is invalid" })
+                <div class="help-block with-errors"></div>
+            </div>
+            <div class="form-group agileinfo wthree w3-agileits agile">
+                <label for="Phone" class="control-label">Phone</label>
+                @Html.TextBoxFor(w => w.Phone, new { @class = "form-control", @placeholder = "Phone", @data_error = "Enter Your Phone Number" })
+                <div class="help-block with-errors"></div>
+            </div>
+            <div class="form-group agile agileits-w3layouts w3-agile">
+                <label for="inputPassword" class="control-label">Password</label>
+                <div class="form-inline row">
+                    <div class="form-group col-sm-6 agileits-w3layouts">
+                        @Html.PasswordFor(w => w.Password, new { @id = "inputPassword", @class = "form-control", @placeholder = "Password", @data_minlength = "6" })
+                        <div class="help-block">Minimum of 6 characters</div>
+                    </div>
+                    <div class="form-group col-sm-6 w3-agile">
+                        @Html.PasswordFor(w => w.ConfirmPassword, new { @id = "inputPasswordConfirm", @class = "form-control", @placeholder = "Confirm Password", @data_match = "#inputPassword", @data_match_error = "Whoops, these don't match" })
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-lg box left">Submit</button>
+                <hr />
+                @Html.ActionLink("Return To Home", "Index", "Home", new { area = "" }, new { @class = "btn btn-lg btn-danger" })
+            </div>
+
+        }
+    </div>
+    <!-- js files -->
+    <script src="/RegistrationForm/js/jquery-1.10.2.min.js"></script>
+    <script src="/RegistrationForm/js/bootstrap.min.js"></script>
+    <script src="/RegistrationForm/js/validator.min.js"></script>
+    <!-- /js files -->
+</body>
+</html>

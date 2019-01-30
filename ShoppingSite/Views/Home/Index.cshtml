@@ -4,59 +4,60 @@
 @{
     ViewBag.Title = "Home Page";
 }
+<body>
+    <section>
+        <div class="home-image">
+            <h1>Shopping Site</h1>
+            <p class="lead"></p>
+            <p><a href="#" class="btn btn-primary btn-lg">About Us! &raquo;</a></p>
+            <p><a href="/Home/CreateProduct" class="btn btn-primary btn-sm">Add your product! &raquo;</a></p>
 
-<div class="jumbotron home-image">
-    <h1>Shopping Site</h1>
-    <p class="lead"></p>
-    <p><a href="#" class="btn btn-primary btn-lg">About Us! &raquo;</a></p>
-    <p><a href="/Home/CreateProduct" class="btn btn-primary btn-sm">Add your product! &raquo;</a></p>
-
-</div>
-<section>
-    <form method="get">
-        <div class="container form-border">
-            <div class="row">
-                @foreach (var item in Model)
-                {
-                    <div class="col-xs-12 col-sm-6 col-md-4">
-                        <div>
+        </div>
+        <form method="get">
+            <div class="container form-border">
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-xs-12 col-sm-6 col-md-4">
                             <div>
-                                <div class="frontside">
-                                    <div class="card">
-                                        <div class="card-body text-center">
-                                            <img class="responsive" src="~/Images/@item.Image" alt="image cap">
-                                            @if (!item.IsAvailableInStock)
-                                            {
-                                                <h4 class="text-danger">Out Of Stock</h4>
-                                            }
-                                            else
-                                            {
-                                                <h4 class="card-title">@item.Name</h4>
-                                            }
-                                            <p class="card-text">@item.Brand</p>
-                                            @Html.ActionLink("View", "Details", "Home", new { id = item.Id }, new { @class = "btn btn-sm btn-primary" })
+                                <div>
+                                    <div class="frontside">
+                                        <div class="card">
+                                            <div class="card-body text-center">
+                                                <img class="responsive" src="~/Images/@item.Image" alt="image cap">
+                                                @if (!item.IsAvailableInStock)
+                                                {
+                                                    <h4 class="text-danger">Out Of Stock</h4>
+                                                }
+                                                else
+                                                {
+                                                    <h4 class="card-title">@item.Name</h4>
+                                                }
+                                                <p class="card-text">@item.Brand</p>
+                                                @Html.ActionLink("View", "Details", "Home", new { id = item.Id }, new { @class = "btn btn-sm btn-primary" })
 
-                                            @if (User.IsInRole(StaticRoles.IsAdmin))
-                                            {
-                                                @Html.ActionLink("Edit", "Edit", "Home", new { id = item.Id }, new { @class = "btn btn-sm btn-success" })
-                                            }
+                                                @if (User.IsInRole(StaticRoles.IsAdmin))
+                                                {
+                                                    @Html.ActionLink("Edit", "Edit", "Home", new { id = item.Id }, new { @class = "btn btn-sm btn-success" })
+                                                }
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div>
                                     <div>
-                                        <div class="text-center mt-4">
-                                            <h4 class="modal-title">@item.CategoryType.Name</h4>
-                                            <p class="text-center" id="content">@item.Description</p>
-                                            <hr />
+                                        <div>
+                                            <div class="text-center mt-4">
+                                                <h4 class="modal-title">@item.CategoryType.Name</h4>
+                                                <p class="text-center" id="content">@item.Description</p>
+                                                <hr />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                }
+                    }
+                </div>
             </div>
-        </div>
-    </form>
-</section>
+        </form>
+    </section>
+</body>

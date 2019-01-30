@@ -1,6 +1,15 @@
 ﻿body {
     padding-top: 50px;
-    padding-bottom: 20px;
+	padding-bottom: 20px;
+    background: url(/SmartLogin/images/TimeBack.jpg) no-repeat;
+    background-position: center;
+    background-attachment: local;
+    background-size: 100% 100%;
+    -webkit-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    -ms-background-size: 100% 100%;
+    font-family: 'Muli', sans-serif;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -33,14 +42,24 @@ label.error {
 }
 
 .home-image {
-    background-image: url('../Images/m_watches.jpg');
-    width: 100%;
+    background: url('../Images/abstract-time-concept.jpg') no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    -webkit-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    -ms-background-size: 100% 100%;
+    font-family: 'Muli', sans-serif;
 }
 
+
+
 .form-border {
-    border: 1px solid #999b9b;
+    /*border: 1px solid #999b9b;*/
     border-radius: 5px;
     padding: 30px 10px 10px 10px;
+    margin-bottom: 30px;
 }
 
 .responsive {
@@ -60,6 +79,7 @@ label.error {
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
 }
+
 .custom-label {
     display: block;
     width: 100%;
@@ -79,10 +99,10 @@ label.error {
 }
 
 .p {
-    font-size:34px;
+    font-size: 34px;
 }
 
-.submited{
-    color:lawngreen;
+.submited {
+    color: lawngreen;
     /*background-color:green;*/
 }
