@@ -3,20 +3,21 @@
     ViewBag.Title = "OrderConfirmation";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<body class="container">
+    <h2>OrderConfirmation</h2>
 
-<h2>OrderConfirmation</h2>
+    @if (Model.OrderHeader != null)
+    {
+        <div class="thumbnail row">
+            @Html.Partial("_IndevidualOrderDetails")
+        </div>
 
-@if (Model.OrderHeader != null)
-{
-    <div class="thumbnail row">
-        @Html.Partial("_IndevidualOrderDetails")
-    </div>
-
-    <a href="/Home/Index" class="btn btn-success">Place another Order</a>
-}
-else
-{
-    <div class="text-danger">
-        Error... Please try again
-    </div>
-}
+        <a href="/Home/Index" class="btn btn-success">Place another Order</a>
+    }
+    else
+    {
+        <div class="text-danger">
+            Error... Please try again
+        </div>
+    }
+</body>

@@ -4,7 +4,9 @@
 @{
     ViewBag.Title = "Home Page";
 }
-<body>
+
+
+<body class="container">
     <section>
         <div class="home-image">
             <h1>Shopping Site</h1>
@@ -12,7 +14,26 @@
             <p><a href="#" class="btn btn-primary btn-lg">About Us! &raquo;</a></p>
             <p><a href="/Home/CreateProduct" class="btn btn-primary btn-sm">Add your product! &raquo;</a></p>
 
+
+            @*@if (Session["userAdminOnline"] != null && User.Identity.IsAuthenticated)
+                {
+
+                }*@
+
+            <a href="/Home/_PartialChat" data-toggle="modal" data-target="#myModal"><strong class="btn btn-success">We Are Online!</strong></a>
+
         </div>
+
+        <div class="modal container" id="myModal">
+            <div id="ChatWindow">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <form method="get">
             <div class="container form-border">
                 <div class="row">
@@ -56,8 +77,72 @@
                             </div>
                         </div>
                     }
+                    @*@Html.Partial("_UserTrackPartitial");*@
                 </div>
             </div>
         </form>
     </section>
 </body>
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#ChatWindow").on("click", "a", function () {
+                $.ajax({
+                    url: '/Home/Chat',
+                }).done(function (msg) {
+                    $("#showModal").html(msg);
+                    $("#myModal").modal();
+                })
+            });
+        });
+
+    </script>
+
+    <script type="text/javascript">
+        $('#myModal').load('/Home/_PartialChat');
+    </script>
+
+    <script>
+        $(document).ready(function () {
+    // Reference the auto-generated proxy for the hub.
+    var chat = $.connection.chatHub;
+    // Create a function that the hub can call back to display messages.
+    chat.client.addNewMessageToPage = function (name, message) {
+        if (name === "@User.Identity.Name") {
+            // Add the message to the page.
+            $('#discussion').append('<p type = "text" style = "width:auto; text-align:left;">' + name + ' Says:</p>' + '<p style="color:green; text-align:left;"><strong><img = src="https://www.phplivesupport.com/pics/icons/avatars/public/avatar_7.png" title="' + name + '">'
+                + ' </strong> ' + htmlEncode(message) + '</p>');
+        }
+        else if (name !== "@User.Identity.Name") {
+            // Add the message to the page.
+            $('#discussion').append('<p type = "text" style = "width:auto; text-align:left;">' + name + ' Says:</p>' + '<p style="color:blue;text-align:right;"><strong><img = src="https://www.phplivesupport.com/pics/icons/avatars/public/avatar_71.png" title="' + name + '">'
+                + ' </strong> ' + htmlEncode(message) + '</p>');
+        }
+    };
+    // Get the user name and store it to prepend to messages.
+     @*$('#displayname').val(prompt('you name is:', '@User.Identity.Name'));*@
+
+    // Set initial focus to message input box.
+    $('#message').focus();
+    // Start the connection.
+    $.connection.hub.start().done(function () {
+        $('#sendmessage').click(function () {
+            // Call the Send method on the hub.
+            chat.server.send($('#displayname').val(), $('#message').val());
+            // Clear text box and reset focus for next comment.
+            $('#message').val('').focus();
+        });
+    });
+        });
+
+// This optional function html-encodes messages for display in the page.
+function htmlEncode(value) {
+    var encodedValue = $('<div />').text(value).html();
+
+    return encodedValue;
+}
+
+    </script>
+
+}

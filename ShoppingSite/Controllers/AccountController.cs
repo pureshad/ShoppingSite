@@ -1,27 +1,32 @@
 ﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ShoppingSite.Models;
 using ShoppingSite.Models.AccountEntitys;
+using ShoppingSite.Models.Entitys;
 using ShoppingSite.ViewModels;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace ShoppingSite.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+        private List<string> UsersOnlineCatalogue = new List<string>();
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        public AccountController()
-        {
-        }
+        public AccountController() { }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -33,9 +38,9 @@ namespace ShoppingSite.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -53,12 +58,12 @@ namespace ShoppingSite.Controllers
 
         //
         // GET: /Account/Login
-        [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
-        {
-            ViewBag.ReturnUrl = returnUrl;
-            return View();
-        }
+        //[AllowAnonymous]
+        //public ActionResult Login(string returnUrl)
+        //{
+        //    ViewBag.ReturnUrl = returnUrl;
+        //    return View();
+        //}
 
         // GET: /Account/SmartLogin
         [AllowAnonymous]
@@ -83,9 +88,66 @@ namespace ShoppingSite.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            using (var db = new ApplicationDbContext())
+            {
+                var userLoged = db.Users.Where(w => w.UserName == model.Email).FirstOrDefault();
+                var RoleAdmin = db.Roles.OrderBy(r => r.Name).FirstOrDefault(w => w.Name == StaticRoles.IsAdmin).Users.Where(w => w.RoleId
+                == w.RoleId).Select(w => w.UserId).FirstOrDefault();
+
+                if (userLoged.Id == RoleAdmin && userLoged != null)
+                {
+                    Session["userAdminOnline"] = userLoged.Email;
+                    
+                }
+
+                else if (Session["userGuestOnline"] != null)
+                {
+                    var userCatalogue = (List<string>)Session["userGuestOnline"];
+                    if (!userCatalogue.Contains(model.Email))
+                    {
+                        userCatalogue.Add(model.Email);
+                        Session["userGuestOnline"] = userCatalogue;
+                    }
+
+                    //Session["userGuestOnline"] = UsersOnlineCatalogue;//TODO user add
+                }
+                else
+                {
+                    var userCatalogue = new List<string>
+                    {
+                        userLoged.Email
+                    };
+                    Session["userGuestOnline"] = userCatalogue;
+                }
+                //if the list exists, add this user to it
+
+                //if (HttpRuntime.Cache["LoggedInUsers"] != null)
+                //{
+                //    var loggedInUsers = (Dictionary<string, DateTime>)
+                //        HttpRuntime.Cache["LoggedInUsers"];
+
+                //    if (!loggedInUsers.ContainsKey(model.Email))
+                //    {
+                //        loggedInUsers.Add(model.Email, DateTime.Now);
+                //        HttpRuntime.Cache["LoggedInUsers"] = loggedInUsers;
+                //    }
+                //}
+
+                ////the list does not exist so create it
+                //else
+                //{
+                //    var loggedInUsers = new Dictionary<string, DateTime>
+                //    {
+                //        { model.Email, DateTime.Now }
+                //    };
+                //    HttpRuntime.Cache["LoggedInUsers"] = loggedInUsers;
+                //}
+            }
+
             switch (result)
             {
                 case SignInStatus.Success:
+                    LoginTime(model.Email);
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -98,36 +160,77 @@ namespace ShoppingSite.Controllers
             }
         }
 
+        public void LoginTime(string userName)
+        {
+            using (var dbContext = new ApplicationDbContext())
+            {
+                var user = dbContext.Users.Where(w => w.UserName == userName).FirstOrDefault();
+                var modelView = dbContext.LoginHistories.Where(w => w.UserId == user.Id).OrderByDescending(w => w.Id).FirstOrDefault();
+
+                if (modelView == null)
+                {
+                    var model = new LoginHistory
+                    {
+                        UserId = user.Id,
+                        LoginTime = DateTime.UtcNow,
+                        LogoutTime = null,
+                        IsLogedIn = true
+                    };
+
+                    dbContext.LoginHistories.Add(model);
+                }
+                else
+                {
+                    modelView.UserId = user.Id;
+                    modelView.LoginTime = DateTime.UtcNow;
+                    modelView.LogoutTime = null;
+                    modelView.IsLogedIn = true;
+                }
+
+                dbContext.SaveChanges();
+            }
+        }
+
+        public void LogoutTime(string userId)
+        {
+            using (var dbContext = new ApplicationDbContext())
+            {
+                var model = dbContext.LoginHistories.Where(w => w.UserId == userId).OrderByDescending(w => w.Id).First();
+                model.LogoutTime = DateTime.UtcNow;
+                model.IsLogedIn = false;
+                dbContext.SaveChanges();
+            }
+        }
 
         //
         // POST: /Account/Login
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(model);
+        //    }
 
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
-            }
-        }
+        //    // This doesn't count login failures towards account lockout
+        //    // To enable password failures to trigger account lockout, change to shouldLockout: true
+        //    var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+        //    switch (result)
+        //    {
+        //        case SignInStatus.Success:
+        //            return RedirectToLocal(returnUrl);
+        //        case SignInStatus.LockedOut:
+        //            return View("Lockout");
+        //        case SignInStatus.RequiresVerification:
+        //            return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+        //        case SignInStatus.Failure:
+        //        default:
+        //            ModelState.AddModelError("", "Invalid login attempt.");
+        //            return View(model);
+        //    }
+        //}
 
         //
         // GET: /Account/VerifyCode
@@ -158,7 +261,7 @@ namespace ShoppingSite.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -174,11 +277,11 @@ namespace ShoppingSite.Controllers
 
         //
         // GET: /Account/Register
-        [AllowAnonymous]
-        public ActionResult Register()
-        {
-            return View();
-        }
+        //[AllowAnonymous]
+        //public ActionResult Register()
+        //{
+        //    return View();
+        //}
 
         // GET: /Account/CustomRegister
         [AllowAnonymous]
@@ -236,49 +339,49 @@ namespace ShoppingSite.Controllers
 
         //
         // POST: /Account/Register
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = new ApplicationUser
-                {
-                    UserName = model.Email,
-                    Email = model.Email,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    Phone = model.Phone,
-                    BirthDate = model.BirthDate
-                };
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> Register(RegisterViewModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var user = new ApplicationUser
+        //        {
+        //            UserName = model.Email,
+        //            Email = model.Email,
+        //            FirstName = model.FirstName,
+        //            LastName = model.LastName,
+        //            Phone = model.Phone,
+        //            BirthDate = model.BirthDate
+        //        };
 
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    //var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
-                    //var roleManager = new RoleManager<IdentityRole>(roleStore);
-                    //await roleManager.CreateAsync(new IdentityRole("IsAdmin")).ConfigureAwait(false);
+        //        var result = await UserManager.CreateAsync(user, model.Password);
+        //        if (result.Succeeded)
+        //        {
+        //            //var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+        //            //var roleManager = new RoleManager<IdentityRole>(roleStore);
+        //            //await roleManager.CreateAsync(new IdentityRole("IsAdmin")).ConfigureAwait(false);
 
-                    //await UserManager.AddToRoleAsync(user.Id, "IsAdmin").ConfigureAwait(false);
+        //            //await UserManager.AddToRoleAsync(user.Id, "IsAdmin").ConfigureAwait(false);
 
 
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+        //            await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
-                    return RedirectToAction("Index", "Home");
-                }
-                AddErrors(result);
-            }
+        //            // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+        //            // Send an email with this link
+        //            // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+        //            // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+        //            // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
+        //            return RedirectToAction("Index", "Home");
+        //        }
+        //        AddErrors(result);
+        //    }
+
+        //    // If we got this far, something failed, redisplay form
+        //    return View(model);
+        //}
 
         //
         // GET: /Account/ConfirmEmail
@@ -475,7 +578,8 @@ namespace ShoppingSite.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser {
+                var user = new ApplicationUser
+                {
                     UserName = model.Email,
                     Email = model.Email,
                     FirstName = model.FirstName,
@@ -507,6 +611,7 @@ namespace ShoppingSite.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            LogoutTime(User.Identity.GetUserId());
             return RedirectToAction("Index", "Home");
         }
 
@@ -541,6 +646,7 @@ namespace ShoppingSite.Controllers
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
+        private readonly ApplicationDbContext _dbContext;
 
         private IAuthenticationManager AuthenticationManager
         {

@@ -2,12 +2,10 @@
 using ShoppingSite.Models.Entitys;
 using ShoppingSite.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Security.Claims;
 using System.Web.Mvc;
-using System.Web.Services;
 
 namespace ShoppingSite.Controllers
 {
@@ -23,6 +21,27 @@ namespace ShoppingSite.Controllers
         protected override void Dispose(bool disposing)
         {
             _dbContext.Dispose();
+        }
+
+        [HttpGet]
+        [System.Web.Mvc.Authorize]
+        public ActionResult Chat()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public PartialViewResult _PartialChat()
+        {
+            return PartialView("_PartialChat");
+        }
+
+
+
+        [HttpGet]
+        public PartialViewResult UserTrack()
+        {
+            return PartialView("_UserTrackPartitial");
         }
 
         public ActionResult Index()
@@ -60,7 +79,7 @@ namespace ShoppingSite.Controllers
             return View(product);
         }
 
-        [Authorize(Roles = StaticRoles.IsAdmin)]
+        [System.Web.Mvc.Authorize(Roles = StaticRoles.IsAdmin)]
         public ActionResult CreateProduct()
         {
             var productVM = new ProductsViewModel
@@ -71,7 +90,7 @@ namespace ShoppingSite.Controllers
             return View("CreateProduct", productVM);
         }
 
-        [Authorize]
+        [System.Web.Mvc.Authorize]
         public ActionResult AddProduct(int? id)
         {
             var products = _dbContext.Products.Include(w => w.CategoryType).SingleOrDefault(w => w.Id == id);
@@ -121,7 +140,7 @@ namespace ShoppingSite.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = StaticRoles.IsAdmin)]
+        [System.Web.Mvc.Authorize(Roles = StaticRoles.IsAdmin)]
         [ValidateAntiForgeryToken]
         public ActionResult Save(Products products)
         {
@@ -165,7 +184,7 @@ namespace ShoppingSite.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [Authorize(Roles = StaticRoles.IsAdmin)]
+        [System.Web.Mvc.Authorize(Roles = StaticRoles.IsAdmin)]
         public ActionResult Edit(int? id)
         {
             var product = _dbContext.Products.Include(w => w.CategoryType).SingleOrDefault(w => w.Id == id);
@@ -187,7 +206,7 @@ namespace ShoppingSite.Controllers
             return View("Edit", productVM);
         }
 
-        [Authorize(Roles = StaticRoles.IsAdmin)]
+        [System.Web.Mvc.Authorize(Roles = StaticRoles.IsAdmin)]
         public ActionResult Delete(int? id)
         {
             if (id == null)

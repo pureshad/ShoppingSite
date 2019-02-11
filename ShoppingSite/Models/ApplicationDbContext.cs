@@ -18,6 +18,7 @@ namespace ShoppingSite.Models
         public DbSet<CategoryType> CategoryTypes { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<OrderHeader> OrderHeaders { get; set; }
+        public DbSet<LoginHistory> LoginHistories { get; set; }
 
 
         public static ApplicationDbContext Create()

@@ -6,31 +6,32 @@
 }
 
 <h2>Order Hystory</h2>
-
-<div>
-    @if (Model.OrderDetailsViewModels.Count == 5)
-    {
-        foreach (var item in Model.OrderDetails)
+<body class="container">
+    <div>
+        @if (Model.OrderDetailsViewModels.Count == 5)
         {
-            if (item.Count == 5)
+            foreach (var item in Model.OrderDetails)
             {
-                @Html.ActionLink("Order Hystory", "Index", "Order", new { id = item.OrderHeader.Id, @class = "form-control btn btn-primary" })
-            }
+                if (item.Count == 5)
+                {
+                    @Html.ActionLink("Order Hystory", "Index", "Order", new { id = item.OrderHeader.Id, @class = "form-control btn btn-primary" })
+                }
 
+            }
+        }
+    </div>
+    <br />
+    @if (Model.OrderDetailsViewModels.Count > 0)
+    {
+        foreach (var item in Model.OrderDetailsViewModels)
+        {
+            <div class="thumbnail row">
+                @Html.Partial("_IndevidualOrderDetails", item)
+            </div>
         }
     }
-</div>
-<br />
-@if (Model.OrderDetailsViewModels.Count > 0)
-{
-    foreach (var item in Model.OrderDetailsViewModels)
+    else
     {
-        <div class="thumbnail row">
-            @Html.Partial("_IndevidualOrderDetails", item)
-        </div>
+        <p>No Orders Available..</p>
     }
-}
-else
-{
-    <p>No Orders Available..</p>
-}
+</body>

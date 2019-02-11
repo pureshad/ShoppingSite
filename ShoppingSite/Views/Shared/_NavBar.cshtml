@@ -35,10 +35,15 @@
                     <li>
                         <a href="/Order/OrderPickup">Order Pickup</a>
                     </li>
+                    @*<li>
+                        @Ajax.ActionLink("Open Chat", "Chat", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "result", InsertionMode = InsertionMode.Replace, OnSuccess = "openPopup" })<br />
+
+                    </li>*@
                 }
             </ul>
             @Html.Partial("_LoginPartial")
             @Html.Partial("_CartPartial")
+
         </div>
     </div>
 </div>
