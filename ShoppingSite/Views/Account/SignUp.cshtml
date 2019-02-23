@@ -29,6 +29,8 @@
         @using (Html.BeginForm("SignUp", "Account", FormMethod.Post, new { @data_toggle = "validator", @role = "form" }))
         {
             @Html.AntiForgeryToken()
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+
             <div class="form-group w3layouts w3 w3l">
                 <label for="firstname" class="control-label">First Name</label>
                 @Html.TextBoxFor(w => w.FirstName, new { @class = "form-control", @placeholder = "First Name", @data_error = "Enter Your First Name" })
@@ -49,12 +51,19 @@
                 @Html.TextBoxFor(w => w.Phone, new { @class = "form-control", @placeholder = "Phone", @data_error = "Enter Your Phone Number" })
                 <div class="help-block with-errors"></div>
             </div>
+
+            <div class="form-group agileinfo wthree w3-agileits agile">
+                <label for="BirthDate" class="control-label" id="datetimepicker4">BirthDate</label>
+                @Html.TextBoxFor(w => w.BirthDate, "{0:dd/MM/yyyy}", new { @class = "form-control", type = "datetime-local", @placeholder = "Birth Date", @data_error = "Enter Your BirthDate" })
+                <div class="help-block with-errors"></div>
+            </div>
+
             <div class="form-group agile agileits-w3layouts w3-agile">
                 <label for="inputPassword" class="control-label">Password</label>
                 <div class="form-inline row">
                     <div class="form-group col-sm-6 agileits-w3layouts">
                         @Html.PasswordFor(w => w.Password, new { @id = "inputPassword", @class = "form-control", @placeholder = "Password", @data_minlength = "6" })
-                        <div class="help-block">Minimum of 6 characters</div>
+                        <div class="help-block">Minimum of 6 characters and 1 non letter digits char</div>
                     </div>
                     <div class="form-group col-sm-6 w3-agile">
                         @Html.PasswordFor(w => w.ConfirmPassword, new { @id = "inputPasswordConfirm", @class = "form-control", @placeholder = "Confirm Password", @data_match = "#inputPassword", @data_match_error = "Whoops, these don't match" })

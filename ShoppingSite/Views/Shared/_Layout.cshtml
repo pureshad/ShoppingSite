@@ -4,27 +4,33 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Shooping Site</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    @*@Scripts.Render("~/bundles/modernizr")*@
+    <link href="~/DetailsLayout/css/style.css" rel="stylesheet" />
+
+    <link href="~/ShopHomePage/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/ShopHomePage/css/shop-homepage.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
 
 </head>
-<body>
-    <div class="container body-content">
+<body class="container">
+    <div class="container">
         @*add class container when chat window will not be a ActionResult*@
         @Html.Partial("_NavBar")
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
     </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/AdminActility.js")
+    @Scripts.Render("~/ShopHomePage/vendor/bootstrap/js/bootstrap.bundle.min.js")
+
     @Scripts.Render("~/Scripts/jquery-ui-1.12.1.js")
     @Scripts.Render("~/Scripts/jquery.signalR-2.4.0.min.js")
     @Scripts.Render("~/SignalR/Hubs/")
-
     @RenderSection("scripts", required: false)
 
 </body>
 </html>
+<hr />
+@*<footer style="height:auto;">
+    <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+</footer>*@

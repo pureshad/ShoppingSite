@@ -25,24 +25,16 @@ namespace ShoppingSite.Controllers
 
         [HttpGet]
         [System.Web.Mvc.Authorize]
-        public ActionResult Chat()
-        {
-            return View();
-        }
-
-        [HttpGet]
         public PartialViewResult _PartialChat()
         {
             return PartialView("_PartialChat");
         }
 
-
-
-        [HttpGet]
-        public PartialViewResult UserTrack()
-        {
-            return PartialView("_UserTrackPartitial");
-        }
+        //[HttpGet]
+        //public PartialViewResult UserTrack()
+        //{
+        //    return PartialView("_UserTrackPartitial");
+        //}
 
         public ActionResult Index()
         {
@@ -66,6 +58,30 @@ namespace ShoppingSite.Controllers
 
             return View("ReadOnlyIndex", products);
         }
+
+        //public ActionResult IndexHome()
+        //{
+        //    var products = _dbContext.Products.Include(w => w.CategoryType).ToList();
+
+        //    var shoppingCart = _dbContext.ShoppingCart.ToList();
+
+        //    var claimsIdentity = (ClaimsIdentity)this.User.Identity;
+        //    var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+        //    var cart = _dbContext.ShoppingCart.Where(w => w.ApplicationUserId == claim.Value);
+
+        //    if (User.IsInRole(StaticRoles.IsAdmin) || User.Identity.IsAuthenticated) //TODO remove OR
+        //    {
+        //        Session["cart"] = shoppingCart;
+        //        var cnt = Session["count"] = cart.Count();
+        //        cnt = Convert.ToInt32(Session["count"]) + 1;
+
+        //        return View(products);
+        //    }
+
+        //    return View("ReadOnlyIndex", products);
+        //}
+
 
         public ActionResult Details(int? id)
         {

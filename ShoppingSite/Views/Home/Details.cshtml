@@ -5,7 +5,7 @@
     ViewBag.Title = "ViewDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<body>
+@*<body>
 
     <h2>Product Details</h2>
     <div class="form-border row">
@@ -51,39 +51,187 @@
             </div>
         </div>
 
-        <div class="col-sm-3 col-sm-offset-0">
+        @*<div class="col-sm-3 col-sm-offset-0">
             <img class="responsive" src="~/Images/@Model.Image" style="width:350px; height:350px;" alt="image cap">
-        </div>
-        <div class="col-sm-8">
-            <a href="/Home/Index" type="button" class="btn btn-sm btn-primary">Back To List</a>
+        </div>*@
+@*<div class="col-lg-4 col-md-6 mb-4">
+                <img class="card h-100" src="~/Images/@Model.Image" style="width:350px; height:350px;" alt="image cap">
+            </div>
+            <div class="col-sm-8">
+                <a href="/Home/Index" type="button" class="btn btn-sm btn-primary">Back To List</a>
 
-            @if (User.IsInRole(StaticRoles.IsAdmin))
+                @if (User.IsInRole(StaticRoles.IsAdmin))
+                {
+                    @Html.ActionLink("Edit", "Edit", "Home", new { id = Model.Id }, new { @class = "btn btn-sm btn-success" })
+                    @Html.ActionLink("Delete", "Delete", "Home", new { id = Model.Id }, new { @class = "btn btn-sm btn-danger",
+                                                                        onclick = "return confirm('are you sure you want to delete this item?')" })
+                }
+
+            </div>
+            @if (User.Identity.IsAuthenticated && Model.IsAvailableInStock == true)
             {
-                @Html.ActionLink("Edit", "Edit", "Home", new { id = Model.Id }, new { @class = "btn btn-sm btn-success" })
-                @Html.ActionLink("Delete", "Delete", "Home", new { id = Model.Id }, new { @class = "btn btn-sm btn-danger",
-                                                                    onclick = "return confirm('are you sure you want to delete this item?')" })
+                <div class="col-sm-1">
+                    @Html.ActionLink("Cart", "AddProduct", "Home", new { id = Model.Id }, new { @class = "btn btn-primary glyphicon glyphicon-plus" })
+                </div>
+            }
+            @if (Model.IsAvailableInStock)
+            {
+                <div class="col-sm-3">
+                    <h3 class="text-success">In Stock!</h3>
+                </div>
+            }
+            else
+            {
+                <div class="col-sm-3">
+                    <h3 class="text-danger">Not Available!</h3>
+                </div>
             }
 
         </div>
-        @if (User.Identity.IsAuthenticated && Model.IsAvailableInStock == true)
-        {
-            <div class="col-sm-1">
-                @Html.ActionLink("Cart", "AddProduct", "Home", new { id = Model.Id }, new { @class = "btn btn-primary glyphicon glyphicon-plus" })
+        @Html.HiddenFor(q => q.Id)
+    </body>*@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>E Shop Product Details Widget A Flat Responsive Widget Template :: W3layouts</title>
+
+    <!-- For-Mobile-Apps -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="E Shop Product Details Widget Responsive, Login Form Web Template, Flat Pricing Tables, Flat Drop-Downs, Sign-Up Web Templates, Flat Web Templates, Login Sign-up Responsive Web Template, Smartphone Compatible Web Template, Android Compatible Web Template, Free Web Designs for Nokia, Samsung, LG, Sony Ericsson, Motorola Web Design" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- //For-Mobile-Apps -->
+    <link href='//fonts.googleapis.com/css?family=Raleway:400,500,600,700,300' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+
+    <div class="content">
+
+        <h1>PRODUCT DETAILS</h1>
+
+        <div class="container">
+
+            <h2 class="center-text">@Html.DisplayFor(w => w.Name)</h2>
+
+            <div class="product">
+                <div class="product-image">
+                    <img class="card h-100" src="~/Images/@Model.Image" style="width:350px; height:350px;" alt="image cap">
+                </div>
+                <div class="product-info">
+                    <p><span>Price: </span>@Html.DisplayFor(w => w.Price)$</p>
+                    @if (Model.IsAvailableInStock)
+                    {
+                        <p><span>Availability</span>In Stock</p>
+                    }
+                    else
+                    {
+                        <p class="text-danger"><span>Availability</span>Not Available!</p>
+
+                    }
+
+
+                    <p><span>Category:</span>@Html.DisplayFor(w => w.CategoryType.Name)</p>
+                    <p><span>Type:</span>@Html.DisplayFor(w => w.DisplayType)</p>
+                    <p><span>Display Type:</span>@Html.DisplayFor(w => w.DisplayType)</p>
+                    <p><span>Strap Quality:</span>@Html.DisplayFor(w => w.StrapQuality)</p>
+                    <p><span>Category:</span>@Html.DisplayFor(w => w.CategoryType.Name)</p>
+
+
+
+                    <p>
+                        <span>Rating</span>
+                        <div class="rating">
+                            <span class="starRating">
+                                <input id="rating5" type="radio" name="rating" value="5">
+                                <label for="rating5">5</label>
+                                <input id="rating4" type="radio" name="rating" value="4">
+                                <label for="rating4">4</label>
+                                <input id="rating3" type="radio" name="rating" value="3" checked>
+                                <label for="rating3">3</label>
+                                <input id="rating2" type="radio" name="rating" value="2">
+                                <label for="rating2">2</label>
+                                <input id="rating1" type="radio" name="rating" value="1">
+                                <label for="rating1">1</label>
+                            </span>
+                        </div>
+                        <div class="clear"></div>
+                    </p>
+                    <p>
+                        <span>Quantity</span>
+                        @Html.DisplayFor(w => w.NumberAvailable)
+                    </p>
+                    <div class="button-detail-ui">
+                        @if (User.Identity.IsAuthenticated && Model.IsAvailableInStock == true)
+                        {
+                            @Html.ActionLink("Cart +", "AddProduct", "Home", new { id = Model.Id }, new { @class = "btn btn-sm btn-primary" })
+                        }
+                        @if (User.IsInRole(StaticRoles.IsAdmin))
+                        {
+                            @Html.ActionLink("Edit", "Edit", "Home", new { id = Model.Id }, new { @class = "btn btn-sm btn-success" })
+
+                            @Html.ActionLink("Delete", "Delete", "Home", new { id = Model.Id }, new { @class = "btn btn-sm btn-danger",
+                                                                                onclick = "return confirm('are you sure you want to delete this item?')" })
+                        }
+
+                    </div>
+                </div>
+                <div class="clear"></div>
             </div>
-        }
-        @if (Model.IsAvailableInStock)
-        {
-            <div class="col-sm-3">
-                <h3 class="text-success">In Stock!</h3>
+
+            <div class="accordion">
+                <section class="ac-container">
+                    <div>
+                        <input id="ac-1" name="accordion-1" type="checkbox" />
+                        <label for="ac-1">Description</label>
+                        <article class="ac-small">
+                            <p>
+                                @Html.DisplayFor(w => w.Description)
+                            </p>
+                        </article>
+                    </div>
+                    <div>
+                        <input id="ac-3" name="accordion-1" type="checkbox" />
+                        <label for="ac-3">Rating & Reviews (40+)</label>
+                        <article class="ac-large ac-review">
+                            <h3>"Excellent Fragrance!"</h3>
+                            <h4>Reno Jean, Certified Buyer.</h4>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                            <span>5 Stars</span>
+                            <a href="#" class="next">Next Review &rarr;</a>
+                        </article>
+                    </div>
+                    <div>
+                        <input id="ac-4" name="accordion-1" type="checkbox" />
+                        <label for="ac-4">Shipping Info</label>
+                        <article class="ac-medium">
+                            <h3>Shipping</h3>
+                            <ul class="ship">
+                                <li class="day">4-10 Business Days</li>
+                                <li class="home">Free Home Delivery</li>
+                                <li class="cod">Cash On Delivery Available*</li>
+                            </ul>
+                        </article>
+                    </div>
+                </section>
+                <hr />
+                <a href="/Home/Index" type="button" class="btn btn-sm btn-primary">Back To List</a>
+
             </div>
-        }
-        else
-        {
-            <div class="col-sm-3">
-                <h3 class="text-danger">Not Available!</h3>
-            </div>
-        }
+
+        </div>
 
     </div>
-    @Html.HiddenFor(q => q.Id)
+    <!-- //Content-Ends-Here -->
+    <!-- Copyright-Starts-Here -->
+    <div class="copyright">
+        <p></p>
+    </div>
+    <!-- //Copyright-Ends-Here -->
+
 </body>
+
+</html>
+

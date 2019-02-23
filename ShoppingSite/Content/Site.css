@@ -1,17 +1,27 @@
-﻿body {
+﻿html {
     padding-top: 50px;
-	padding-bottom: 20px;
+    height: auto;
+    min-height: 100%;
+    /*margin: 0;*/
+    padding-bottom: 20px;
     background: url(/SmartLogin/images/TimeBack.jpg) no-repeat;
     background-position: center;
     background-attachment: local;
     background-size: 100% 100%;
-    -webkit-background-size: 100% 100%;
+    /*-webkit-background-size: 100% 100%;
     -moz-background-size: 100% 100%;
     -o-background-size: 100% 100%;
-    -ms-background-size: 100% 100%;
+    -ms-background-size: 100% 100%;*/
     font-family: 'Muli', sans-serif;
+    color: #84b3e2;
+}
+body {
+    background-color: #91b1d2;
 }
 
+.modal{
+    left:auto;
+}
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
@@ -46,10 +56,10 @@ label.error {
     background-position: center;
     background-attachment: fixed;
     background-size: 100% 100%;
-    -webkit-background-size: 100% 100%;
+    /*-webkit-background-size: 100% 100%;
     -moz-background-size: 100% 100%;
     -o-background-size: 100% 100%;
-    -ms-background-size: 100% 100%;
+    -ms-background-size: 100% 100%;*/
     font-family: 'Muli', sans-serif;
 }
 
@@ -67,7 +77,6 @@ label.error {
     max-width: 400px;
     height: auto;
     height: 200px;
-    width: 180px;
     border-radius: 5px;
     border: 1px solid #bbb9b9;
     background-color: #ffffff;
@@ -76,7 +85,7 @@ label.error {
 #content {
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
 }
 

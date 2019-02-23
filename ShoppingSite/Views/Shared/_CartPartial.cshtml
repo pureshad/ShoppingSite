@@ -1,23 +1,30 @@
 ﻿<ul class="nav navbar-nav navbar-right">
     @if (User.Identity.IsAuthenticated)
     {
-        if (Session["cart"] != null) 
+        if (Session["cart"] != null)
         {
             <li>
                 <a href="/ShoppingCart/Index">
-                    <span class="glyphicon glyphicon-shopping-cart">
-                        &nbsp;(@Session["count"])
-                    </span>
+                    <div class="cart-ui">
+                        <div class="cart-container">
+                            &nbsp;(@Session["count"])
+                        </div>
+                        <img src="~/Images/shopping-cart.png" style="height:30px; width:30px;" />
+                    </div>
+
                 </a>
             </li>
         }
-        else if (Session["cart"] == null) 
+        else if (Session["cart"] == null)
         {
             <li>
                 <a href="/ShoppingCart/Index">
-                    <span class="glyphicon glyphicon-shopping-cart">
-                        &nbsp;(0)
-                    </span>
+                    <div class="cart-ui">
+                        <div class="cart-container">
+                            (0)
+                        </div>
+                        <img src="~/Images/shopping-cart.png" style="height:30px; width:30px;" />
+                    </div>
                 </a>
             </li>
         }

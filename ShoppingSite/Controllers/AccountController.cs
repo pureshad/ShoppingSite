@@ -1,28 +1,26 @@
 ﻿using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ShoppingSite.Models;
 using ShoppingSite.Models.AccountEntitys;
 using ShoppingSite.Models.Entitys;
-using ShoppingSite.ViewModels;
+using ShoppingSite.SIgnalR.Hubs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
 
 namespace ShoppingSite.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
-        private List<string> UsersOnlineCatalogue = new List<string>();
-
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private static List<string> userCatalogue = new List<string>();
+        public static List<string> adminCatalogue = new List<string>();
 
         public AccountController() { }
 
@@ -88,61 +86,6 @@ namespace ShoppingSite.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            using (var db = new ApplicationDbContext())
-            {
-                var userLoged = db.Users.Where(w => w.UserName == model.Email).FirstOrDefault();
-                var RoleAdmin = db.Roles.OrderBy(r => r.Name).FirstOrDefault(w => w.Name == StaticRoles.IsAdmin).Users.Where(w => w.RoleId
-                == w.RoleId).Select(w => w.UserId).FirstOrDefault();
-
-                if (userLoged.Id == RoleAdmin && userLoged != null)
-                {
-                    Session["userAdminOnline"] = userLoged.Email;
-                    
-                }
-
-                else if (Session["userGuestOnline"] != null)
-                {
-                    var userCatalogue = (List<string>)Session["userGuestOnline"];
-                    if (!userCatalogue.Contains(model.Email))
-                    {
-                        userCatalogue.Add(model.Email);
-                        Session["userGuestOnline"] = userCatalogue;
-                    }
-
-                    //Session["userGuestOnline"] = UsersOnlineCatalogue;//TODO user add
-                }
-                else
-                {
-                    var userCatalogue = new List<string>
-                    {
-                        userLoged.Email
-                    };
-                    Session["userGuestOnline"] = userCatalogue;
-                }
-                //if the list exists, add this user to it
-
-                //if (HttpRuntime.Cache["LoggedInUsers"] != null)
-                //{
-                //    var loggedInUsers = (Dictionary<string, DateTime>)
-                //        HttpRuntime.Cache["LoggedInUsers"];
-
-                //    if (!loggedInUsers.ContainsKey(model.Email))
-                //    {
-                //        loggedInUsers.Add(model.Email, DateTime.Now);
-                //        HttpRuntime.Cache["LoggedInUsers"] = loggedInUsers;
-                //    }
-                //}
-
-                ////the list does not exist so create it
-                //else
-                //{
-                //    var loggedInUsers = new Dictionary<string, DateTime>
-                //    {
-                //        { model.Email, DateTime.Now }
-                //    };
-                //    HttpRuntime.Cache["LoggedInUsers"] = loggedInUsers;
-                //}
-            }
 
             switch (result)
             {
@@ -611,6 +554,19 @@ namespace ShoppingSite.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            using (var db = new ApplicationDbContext())
+            {
+                var userLogedout = db.Users.Where(w => w.UserName == User.Identity.Name).FirstOrDefault();
+                var RoleAdminId = db.Roles.OrderBy(r => r.Name).FirstOrDefault(w => w.Name == StaticRoles.IsAdmin).Users.Where(w => w.RoleId
+                        == w.RoleId).Select(w => w.UserId).FirstOrDefault();
+
+                if (userLogedout.Id == RoleAdminId)
+                {
+                    var context = Microsoft.AspNet.SignalR.GlobalHost.ConnectionManager.GetHubContext<UserTrackHub>();
+                    context.Clients.All.updateAdminOnlineStatus(false);
+                }
+            }
+
             LogoutTime(User.Identity.GetUserId());
             return RedirectToAction("Index", "Home");
         }

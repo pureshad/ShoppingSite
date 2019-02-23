@@ -19,13 +19,26 @@ namespace ShoppingSite
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+                      "~/Scripts/AdminActility.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/ShoppingSite/").Include(
                       "~/Scripts/bootstrap.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
+                 "~/Scripts/jquery-ui-{version}.js"));
+            //css  
+            bundles.Add(new StyleBundle("~/Content/cssjqryUi").Include(
+                   "~/Content/jquery-ui.css"));
+
+            bundles.Add(new StyleBundle("~/~/ShopHomePage/vendor").Include(
+                   "~/ShopHomePage/vendor/jquery-ui.css"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap-lumenV3.css",
                       "~/Content/bootstrap-site-theme.css",
                       "~/Content/font-awesome.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css"
+                      ));
         }
     }
 }
