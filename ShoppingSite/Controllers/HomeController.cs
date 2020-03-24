@@ -24,17 +24,11 @@ namespace ShoppingSite.Controllers
         }
 
         [HttpGet]
-        [System.Web.Mvc.Authorize]
+        [Authorize]
         public PartialViewResult _PartialChat()
         {
             return PartialView("_PartialChat");
         }
-
-        //[HttpGet]
-        //public PartialViewResult UserTrack()
-        //{
-        //    return PartialView("_UserTrackPartitial");
-        //}
 
         public ActionResult Index()
         {
@@ -59,43 +53,14 @@ namespace ShoppingSite.Controllers
             return View("ReadOnlyIndex", products);
         }
 
-        //public ActionResult IndexHome()
-        //{
-        //    var products = _dbContext.Products.Include(w => w.CategoryType).ToList();
-
-        //    var shoppingCart = _dbContext.ShoppingCart.ToList();
-
-        //    var claimsIdentity = (ClaimsIdentity)this.User.Identity;
-        //    var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-
-        //    var cart = _dbContext.ShoppingCart.Where(w => w.ApplicationUserId == claim.Value);
-
-        //    if (User.IsInRole(StaticRoles.IsAdmin) || User.Identity.IsAuthenticated) //TODO remove OR
-        //    {
-        //        Session["cart"] = shoppingCart;
-        //        var cnt = Session["count"] = cart.Count();
-        //        cnt = Convert.ToInt32(Session["count"]) + 1;
-
-        //        return View(products);
-        //    }
-
-        //    return View("ReadOnlyIndex", products);
-        //}
-
-
         public ActionResult Details(int? id)
         {
             var product = _dbContext.Products.Include(w => w.CategoryType).SingleOrDefault(w => w.Id == id);
 
-            if (product == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View(product);
+            return product == null ? HttpNotFound() : (ActionResult)View(product);
         }
 
-        [System.Web.Mvc.Authorize(Roles = StaticRoles.IsAdmin)]
+        [Authorize(Roles = StaticRoles.IsAdmin)]
         public ActionResult CreateProduct()
         {
             var productVM = new ProductsViewModel
@@ -106,7 +71,7 @@ namespace ShoppingSite.Controllers
             return View("CreateProduct", productVM);
         }
 
-        [System.Web.Mvc.Authorize]
+        [Authorize]
         public ActionResult AddProduct(int? id)
         {
             var products = _dbContext.Products.Include(w => w.CategoryType).SingleOrDefault(w => w.Id == id);
@@ -156,7 +121,7 @@ namespace ShoppingSite.Controllers
         }
 
         [HttpPost]
-        [System.Web.Mvc.Authorize(Roles = StaticRoles.IsAdmin)]
+        [Authorize(Roles = StaticRoles.IsAdmin)]
         [ValidateAntiForgeryToken]
         public ActionResult Save(Products products)
         {
@@ -200,7 +165,7 @@ namespace ShoppingSite.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [System.Web.Mvc.Authorize(Roles = StaticRoles.IsAdmin)]
+        [Authorize(Roles = StaticRoles.IsAdmin)]
         public ActionResult Edit(int? id)
         {
             var product = _dbContext.Products.Include(w => w.CategoryType).SingleOrDefault(w => w.Id == id);
@@ -222,7 +187,7 @@ namespace ShoppingSite.Controllers
             return View("Edit", productVM);
         }
 
-        [System.Web.Mvc.Authorize(Roles = StaticRoles.IsAdmin)]
+        [Authorize(Roles = StaticRoles.IsAdmin)]
         public ActionResult Delete(int? id)
         {
             if (id == null)

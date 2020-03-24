@@ -113,22 +113,24 @@
     <script type="text/javascript">
         $(document).ready(function () {
     // Reference the auto-generated proxy for the hub.
-    var chat = $.connection.chatHub;
+            var chat = $.connection.chatHub;
+            var thisUser = "@Html.Raw(User.Identity.Name)";
+
     // Create a function that the hub can call back to display messages.
-    chat.client.addNewMessageToPage = function (name, message) {
-        if (name === "@User.Identity.Name") {
+            chat.client.addNewMessageToPage = function (name, message) {
+                if (name === thisUser) {
             // Add the message to the page.
             $('#discussion').append('<p type = "text" style = "width:auto; text-align:left;">' + name + ' Says:</p>' + '<p style="color:green; text-align:left;"><strong><img = src="https://www.phplivesupport.com/pics/icons/avatars/public/avatar_7.png" title="' + name + '">'
                 + ' </strong> ' + htmlEncode(message) + '</p>');
         }
-        else if (name !== "@User.Identity.Name") {
+        else if (name !== thisUser) {
             // Add the message to the page.
             $('#discussion').append('<p type = "text" style = "width:auto; text-align:left;">' + name + ' Says:</p>' + '<p style="color:blue;text-align:right;"><strong><img = src="https://www.phplivesupport.com/pics/icons/avatars/public/avatar_71.png" title="' + name + '">'
                 + ' </strong> ' + htmlEncode(message) + '</p>');
         }
     };
-    // Get the user name and store it to prepend to messages.
-     @*$('#displayname').val(prompt('you name is:', '@User.Identity.Name'));*@
+            // Get the user name and store it to prepend to messages.
+            $('#displayname').val(thisUser, '');
 
     // Set initial focus to message input box.
     $('#message').focus();

@@ -61,7 +61,6 @@ namespace ShoppingSite.Controllers
                 orderDetailsVM.OrderHeader = indevidual.OrderHeader;
 
                 orderDetailsVM.OrderDetailsViewModels.Add(indevidual);
-
             }
             return View("Index", orderDetailsVM);
         }
@@ -142,16 +141,12 @@ namespace ShoppingSite.Controllers
                         orderDetailsVM.OrderHeader = indevidual.OrderHeader;
 
                         orderDetailsVM.OrderDetailsViewModels.Add(indevidual);
-
                     }
-
                 }
             }
             else
             {
-                var orderHeadersList = _dbContext.OrderHeaders.Where(w => w.Status == StaticDetails.StatusReady).ToList();
-
-                foreach (OrderHeader item in orderHeadersList)
+                foreach (OrderHeader item in _dbContext.OrderHeaders.Where(w => w.Status == StaticDetails.StatusReady).ToList())
                 {
                     var orderHeader = item;
                     var orderDetailsList = _dbContext.OrderDetails.Where(w => w.OrderId == item.Id).ToList();
@@ -166,7 +161,6 @@ namespace ShoppingSite.Controllers
                     orderDetailsVM.OrderHeader = indevidual.OrderHeader;
 
                     orderDetailsVM.OrderDetailsViewModels.Add(indevidual);
-
                 }
             }
 

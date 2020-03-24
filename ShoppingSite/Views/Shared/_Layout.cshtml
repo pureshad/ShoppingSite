@@ -13,9 +13,9 @@
 
 </head>
 <body class="container">
+        @Html.Partial("_NavBar")
     <div class="container">
         @*add class container when chat window will not be a ActionResult*@
-        @Html.Partial("_NavBar")
         @RenderBody()
     </div>
     @Scripts.Render("~/bundles/jquery")
