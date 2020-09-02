@@ -6,12 +6,12 @@ namespace ShoppingSite.Migrations
     {
         public override void Up()
         {
-            AlterColumn("dbo.Users", "BirthDate", c => c.DateTime());
+            //AlterColumn("dbo.Users", "BirthDate", c => c.DateTime());
         }
         
         public override void Down()
         {
-            AlterColumn("dbo.Users", "BirthDate", c => c.DateTime(nullable: false));
+            //AlterColumn("dbo.Users", "BirthDate", c => c.DateTime(nullable: false));
         }
     }
 }

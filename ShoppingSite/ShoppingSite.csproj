@@ -280,6 +280,26 @@
     <Compile Include="Migrations\201901310830517_LoginHistory_Added_IsLogedIn.Designer.cs">
       <DependentUpon>201901310830517_LoginHistory_Added_IsLogedIn.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008251318201_Init2.cs" />
+    <Compile Include="Migrations\202008251318201_Init2.Designer.cs">
+      <DependentUpon>202008251318201_Init2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008251412586_SeedUsers2.cs" />
+    <Compile Include="Migrations\202008251412586_SeedUsers2.Designer.cs">
+      <DependentUpon>202008251412586_SeedUsers2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008260741258_Init3.cs" />
+    <Compile Include="Migrations\202008260741258_Init3.Designer.cs">
+      <DependentUpon>202008260741258_Init3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008260803414_Init4.cs" />
+    <Compile Include="Migrations\202008260803414_Init4.Designer.cs">
+      <DependentUpon>202008260803414_Init4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008260807023_Init5.cs" />
+    <Compile Include="Migrations\202008260807023_Init5.Designer.cs">
+      <DependentUpon>202008260807023_Init5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountEntitys\ForgotPasswordViewModel.cs" />
     <Compile Include="Models\AccountEntitys\ExternalLoginConfirmationViewModel.cs" />
@@ -585,6 +605,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901310830517_LoginHistory_Added_IsLogedIn.resx">
       <DependentUpon>201901310830517_LoginHistory_Added_IsLogedIn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008251318201_Init2.resx">
+      <DependentUpon>202008251318201_Init2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008251412586_SeedUsers2.resx">
+      <DependentUpon>202008251412586_SeedUsers2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008260741258_Init3.resx">
+      <DependentUpon>202008260741258_Init3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008260803414_Init4.resx">
+      <DependentUpon>202008260803414_Init4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008260807023_Init5.resx">
+      <DependentUpon>202008260807023_Init5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

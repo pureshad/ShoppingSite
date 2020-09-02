@@ -139,6 +139,7 @@ namespace ShoppingSite.Controllers
 
             if (products.Id == 0)
             {
+                products.CreatedTime = DateTime.Now;
                 _dbContext.Products.Add(products);
             }
             else
@@ -146,13 +147,17 @@ namespace ShoppingSite.Controllers
                 var productInDb = _dbContext.Products.Single(w => w.Id == products.Id);
                 productInDb.Name = products.Name;
                 productInDb.Description = products.Description;
-                productInDb.CreatedTime = products.CreatedTime;
-                productInDb.Image = products.Image;
+                productInDb.CreatedTime = DateTime.Now;
+                if (products.Image != null)
+                {
+                    productInDb.Image = products.Image;
+                }
                 productInDb.CategoryTypeId = products.CategoryTypeId;
                 productInDb.Brand = products.Brand;
                 productInDb.NumberAvailable = products.NumberAvailable;
                 productInDb.StrapQuality = products.StrapQuality;
                 productInDb.Price = products.Price;
+                productInDb.DisplayType = products.DisplayType;
 
                 if (productInDb.NumberAvailable >= 1)
                 {

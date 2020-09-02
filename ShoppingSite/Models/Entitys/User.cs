@@ -5,7 +5,7 @@ namespace ShoppingSite.Models.Entitys
 {
     public class User
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [Required, StringLength(80)]
         public string FirstName { get; set; }

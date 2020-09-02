@@ -1,26 +1,36 @@
-﻿html {
+﻿* {
+    padding: 0;
+    margin: 0;
+}
+
+html {
     padding-top: 50px;
     height: auto;
     min-height: 100%;
     /*margin: 0;*/
     padding-bottom: 20px;
-    background: url(/SmartLogin/images/TimeBack.jpg) no-repeat;
+    background: linear-gradient(to bottom, #2F4172, #7986AC);
     background-position: center;
     background-attachment: local;
     background-size: 100% 100%;
-    /*-webkit-background-size: 100% 100%;
+    -webkit-background-size: 100% 100%;
     -moz-background-size: 100% 100%;
     -o-background-size: 100% 100%;
-    -ms-background-size: 100% 100%;*/
+    -ms-background-size: 100% 100%;
     font-family: 'Muli', sans-serif;
     color: #84b3e2;
 }
-body {
+/*body {
     background-color: #91b1d2;
+}*/
+
+.navbar-color {
+    background-color: #162756;
+    z-index: 1;
 }
 
-.modal{
-    left:auto;
+.modal {
+    left: auto;
 }
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -52,14 +62,13 @@ label.error {
 }
 
 .home-image {
-    background: url('../Images/abstract-time-concept.jpg') no-repeat;
     background-position: center;
     background-attachment: fixed;
     background-size: 100% 100%;
-    /*-webkit-background-size: 100% 100%;
+    -webkit-background-size: 100% 100%;
     -moz-background-size: 100% 100%;
     -o-background-size: 100% 100%;
-    -ms-background-size: 100% 100%;*/
+    -ms-background-size: 100% 100%;
     font-family: 'Muli', sans-serif;
 }
 
@@ -114,4 +123,165 @@ label.error {
 .submited {
     color: lawngreen;
     /*background-color:green;*/
+}
+
+/*.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    
+}*/
+
+.card-img-size {
+    height: 260px;
+    width: 260px;
+}
+
+.carousel-img-size {
+    height: 262px;
+    width: 825px;
+}
+/*---------------------------CHAT BOX---------------------------*/
+
+.h-250 {
+    height: 250px;
+}
+
+.chat-panel-footer-pos-r {
+    position: relative;
+}
+
+.chat-panel-footer-pos-abs {
+    position: absolute;
+}
+
+.chat-box {
+    width: 0;
+    height: 0;
+    bottom: 50px;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    /*background: linear-gradient(to bottom, #061439, #2F4172);*/
+    background: url('http://subtlepatterns.com/patterns/geometry2.png');
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding-top: 60px;
+    transition: 0.5s;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+#discussion {
+    flex-grow: 1;
+}
+
+.close-chat-btn {
+    position: absolute;
+    top: 25px;
+    right: 20px;
+    font-size: 36px;
+    margin-left: 40px;
+}
+.close-chat-btn:hover {
+    color: red;
+    text-decoration: none;
+}
+
+.chat-button-green {
+    z-index: 0;
+    color: green;
+}
+
+.chat-button-red {
+    z-index: 0;
+    color: red;
+}
+
+div.chat-panel-body {
+    background: url('http://subtlepatterns.com/patterns/geometry2.png');
+    flex-grow: 1;
+}
+
+
+/*---------------------------SIDE PANEL---------------------------*/
+.sidepanel {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1; 
+    top: 0;
+    left: 0;
+    background: linear-gradient(to bottom, #061439, #2F4172);
+    overflow-x: hidden;
+    padding-top: 60px; 
+    transition: 0.5s;  
+}
+
+
+    /*.modal {*/
+    /*height: 50%;*/ /* Specify a height */
+    /*width: 0;*/ /*0 width - change this with JavaScript */
+    /*position: relative;*/ /* Stay in place */
+    /*z-index: 1;*/ /* Stay on top */
+    /*bottom: 20px;
+    left: 0;
+    background: linear-gradient(to bottom, #061439, #2F4172);
+    overflow-x: hidden;*/ /* Disable horizontal scroll */
+    /*padding-top: 60px;*/ /* Place content 60px from the top */
+    /*transition: 0.5s;
+}*/
+    /* The sidepanel links */
+    .sidepanel a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+    }
+
+        /* When you mouse over the navigation links, change their color */
+        .sidepanel a:hover {
+            color: #f1f1f1;
+        }
+
+    /* Position and style the close button (top right corner) */
+    .sidepanel .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+
+.closebtn {
+    position: absolute;
+    top: 0;
+    right: 40px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+/* Style the button that is used to open the sidepanel */
+.openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #343a40;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+}
+
+.admin-panel-btn {
+    display: flex;
+    justify-content: center;
+}
+
+.openbtn:hover {
+    background-color: #444;
 }

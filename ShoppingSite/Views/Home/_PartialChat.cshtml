@@ -1,7 +1,4 @@
-﻿
-@using ShoppingSite.Models
-
-<style>
+﻿<style>
     div.panel-body {
         overflow: scroll;
         background: url('http://subtlepatterns.com/patterns/geometry2.png');
@@ -9,25 +6,16 @@
 </style>
 
 <h2 class="center-text">Chat Support</h2>
-<div class="chat-panel panel panel-default">
-    <div class="panel-heading">
-        ChatBox using SingalR
-    </div>
-    <!-- /.panel-heading -->
-    <div class="panel-body" id="chat" style="height:250px;">
-        <input type="hidden" id="displayname" />
 
-        <p id="discussion"></p>
-    </div>
-    <!-- /.panel-body -->
-    <div class="panel-footer">
-        <div class="input-group">
-            <input id="message" type="text" name="message" class="form-control input-sm" placeholder="Type your message here..." />
+<div class="chat-panel-body h-100" id="chat">
+    <input type="hidden" id="displayname" />
 
-            <span class="input-group-btn">
-                <input type="button" class="btn btn-warning btn-sm" id="sendmessage" value="Send">
+    <p id="discussion"></p>
+</div>
+<div class="panel-footer">
+    <div class="input-group">
+        <input id="message" type="text" name="message" class="form-control" placeholder="Type your message here..." />
 
-            </span>
-        </div>
+        <input type="button" class="btn btn-warning btn-sm ml-2 form-control" id="sendmessage" value="Send">
     </div>
 </div>
