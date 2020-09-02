@@ -10,73 +10,79 @@
     {
         if (Model.ShoppingCarts.Count > 0)
         {
-            <div class="row form-border">
-                <table>
-                    <tr>
-                        <th style="width:70px; text-align:center">Product @Html.LabelFor(w => w.ShoppingCarts.FirstOrDefault().Products.Name)</th>
-                        <th style="width:70px; text-align:center">
-                           Item per @Html.LabelFor(w => w.ShoppingCarts.FirstOrDefault().Products.Price)
-                        </th>
-                        <th style="width:70px; text-align:center">
-                            @Html.LabelFor(w => w.ShoppingCarts.FirstOrDefault().Count)
-                        </th>
-                        <th></th>
-                    </tr>
-                    @foreach (var item in Model.ShoppingCarts)
-                    {
-                        <tr style="border-bottom:1px solid #e9e4e4"></tr>
-                        <tr class="paddingB30pxToTD">
-                            <td>
-                                <b>@Html.DisplayFor(c => item.Products.Name)</b>
-                                <br />
-                                <b>@Html.DisplayFor(c => item.Products.Description)</b>
-                            </td>
-
-                            <td style="width:70px; text-align:center">
-                                <b>@Html.DisplayFor(c => item.Products.Price)</b>
-                            </td>
-                            <td style="width:70px; text-align:center">
-                                <b>@Html.DisplayFor(c => item.Count)</b>
-                            </td>
+            <div class="justify-content-center align-items-center">
+                <div class="row">
+                    <div class="form-group col-sm-2">
+                        Product @Html.LabelFor(w => w.ShoppingCarts.FirstOrDefault().Products.Name)
+                    </div>
+                    <div class="form-group col-sm-2">
+                        Item per @Html.LabelFor(w => w.ShoppingCarts.FirstOrDefault().Products.Price)
+                    </div>
+                    <div class="form-group col-sm-2">
+                        @Html.LabelFor(w => w.ShoppingCarts.FirstOrDefault().Count)
+                    </div>
+                    <div class="form-group col-sm-2">
+                        @Html.LabelFor(w => w.ShoppingCarts.FirstOrDefault().Products.Description)
+                    </div>
+                    <div class="form-group col">
+                    </div>
+                    <div class="form-group col-sm-2">
+                    </div>
+                </div>
+                <hr />
+                @foreach (var item in Model.ShoppingCarts)
+                {
+                    <div class="row">
+                        <div class="form-group col-sm-2">
+                            @Html.DisplayFor(c => item.Products.Name)
+                        </div>
+                        <div class="form-group col-sm-2">
+                            @Html.DisplayFor(c => item.Products.Price)
+                        </div>
+                        <div class="form-group col-sm-2">
+                            @Html.DisplayFor(c => item.Count)
+                        </div>
+                        <div class="form-group col-sm-2">
+                            @Html.DisplayFor(c => item.Products.Description)
+                        </div>
+                        <div class="form-group col-sm-2">
+                        </div>
+                        <div class="form-group col-sm-2">
                             @if (item.Count >= item.Products.NumberAvailable || item.Products.NumberAvailable == 1)
                             {
-                                <td>
-                                    <button class="btn btn-sm btn-success" disabled>+</button>
-                                </td>
+                                <button class="btn btn-sm btn-success" disabled>+</button>
                             }
                             else
                             {
-                                <td>
-                                    @Html.ActionLink("+", "PlusProduct", "ShoppingCart", new { id = item.Id }, new { @class = "btn btn-success " })
-                                </td>
-
+                                @Html.ActionLink("+", "PlusProduct", "ShoppingCart", new { id = item.Id }, new { @class = "btn btn-success " })
                             }
-                            <td>
-                                @Html.ActionLink("-", "MinusProduct", "ShoppingCart", new { id = item.Id }, new { @class = "btn btn-sm btn-danger " })
-                            </td>
-                        </tr>
-
-                    }
-                </table>
+                            @Html.ActionLink("-", "MinusProduct", "ShoppingCart", new { id = item.Id }, new { @class = "btn btn-danger " })
+                        </div>
+                    </div>
+                }
                 <hr />
+                <div class="row">
+                    <div class="col-sm-2 form-group">
+                        <span>@Html.LabelFor(c => c.OrderHeader.Comments, new { @class = "form-group" })</span>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <p> @Html.TextAreaFor(w => w.OrderHeader.Comments, new { @class = "form-control" })</p>
+
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-sm-2">
                         <p>@Html.LabelFor(w => w.OrderHeader.OrderTotal)</p>
                     </div>
-                    <div class="col-sm-3 order-total">
+                    <div class="col-sm-4">
                         <p> @Html.TextBoxFor(w => w.OrderHeader.OrderTotal, new { @class = "form-control", disabled = "disabled" })</p>
                     </div>
                 </div>
-
                 <div class="row">
-                        <label class="custom-label"><span>Comments :</span></label>
-                        <div class="col-sm-10">
-                            <p> @Html.TextAreaFor(w => w.OrderHeader.Comments, new { @class = "form-control" })</p>
-                            <button type="submit" class="btn btn-primary">Submit Order</button>
-
-                        </div>
+                    <div class="col form-group">
+                        <button type="submit" class="btn btn-primary mb-1">Submit Order</button>
+                    </div>
                 </div>
-
             </div>
         }
         else
