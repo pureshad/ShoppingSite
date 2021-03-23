@@ -27,12 +27,18 @@
             <div class="col-lg-3">
                 <h1 class="my-4" style="color:dodgerblue; font-style:italic;">I.M.4Watch</h1>
                 <div class="list-group">
-                    @*<a href="#" class="list-group-item">Category 1</a>
-                        <a href="#" class="list-group-item">Category 2</a>
-                        <a href="#" class="list-group-item">Category 3</a>*@
-                    @*<p><a href="/Home/_PartialChat" class="list-group-item" style="color:green;" data-toggle="modal" data-target="#myModal" id="ChatLink">We Are Online!</a></p>*@
+                    <a href="#" class="list-group-item">Category 1</a>
+                    <a href="#" class="list-group-item">Category 2</a>
+                    <a href="#" class="list-group-item">Category 3</a>
+                </div>
+                <hr />
+                <div class="list-group">
+                    <a href="/Home/CreateProduct" class="list-group-item">Add Product</a>
+                    <a href="#" class="list-group-item">Category 2</a>
+                    <a href="#" class="list-group-item">Category 3</a>
                 </div>
             </div>
+
             <div class="col-lg-9">
                 <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
                     <ol class="carousel-indicators">
@@ -83,9 +89,11 @@
                                 </div>
                                 @if (User.IsInRole(StaticRoles.IsAdmin))
                                 {
-                                    <div class="card-footer">
-                                        @Html.ActionLink("Edit", "Edit", "Home", new { id = item.Id }, new { @class = "btn btn-sm btn-success" })
-                                    </div>
+                            <div class="card-footer">
+                                @Html.ActionLink("Edit", "Edit", "Home", new { id = item.Id }, new { @class = "btn btn-sm btn-success" })
+                                @Html.ActionLink("Details", "Details", "Home", new { id = item.Id }, new { @class = "btn btn-sm btn-info" })
+                                @Html.ActionLink("Cart", "AddProduct", "Home", new { id = item.Id }, new { @class = "btn btn-sm btn-info" })
+                            </div>
                                 }
                             </div>
                         </div>

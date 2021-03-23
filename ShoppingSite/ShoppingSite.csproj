@@ -212,14 +212,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201807080935557_Init.cs" />
-    <Compile Include="Migrations\201807080935557_Init.Designer.cs">
-      <DependentUpon>201807080935557_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201807080939019_Init1.cs" />
-    <Compile Include="Migrations\201807080939019_Init1.Designer.cs">
-      <DependentUpon>201807080939019_Init1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201807101338082_Nullble-BirthDate.cs" />
     <Compile Include="Migrations\201807101338082_Nullble-BirthDate.Designer.cs">
       <DependentUpon>201807101338082_Nullble-BirthDate.cs</DependentUpon>
@@ -240,45 +232,9 @@
     <Compile Include="Migrations\201807171403498_SeedUsers.Designer.cs">
       <DependentUpon>201807171403498_SeedUsers.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201807181045555_AddedTables_OrderDetail_OrderHeader.cs" />
-    <Compile Include="Migrations\201807181045555_AddedTables_OrderDetail_OrderHeader.Designer.cs">
-      <DependentUpon>201807181045555_AddedTables_OrderDetail_OrderHeader.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201807181121538_AddedTables_OrderDetail_OrderHeader1.cs" />
-    <Compile Include="Migrations\201807181121538_AddedTables_OrderDetail_OrderHeader1.Designer.cs">
-      <DependentUpon>201807181121538_AddedTables_OrderDetail_OrderHeader1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201807231028493_RegeisterModel_FName_LName_PNumberAdded.cs" />
-    <Compile Include="Migrations\201807231028493_RegeisterModel_FName_LName_PNumberAdded.Designer.cs">
-      <DependentUpon>201807231028493_RegeisterModel_FName_LName_PNumberAdded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201807231318192_addedFK_ProductId.cs" />
-    <Compile Include="Migrations\201807231318192_addedFK_ProductId.Designer.cs">
-      <DependentUpon>201807231318192_addedFK_ProductId.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201807291014475_FKUserId.cs" />
-    <Compile Include="Migrations\201807291014475_FKUserId.Designer.cs">
-      <DependentUpon>201807291014475_FKUserId.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201807291017568_FKOrderId.cs" />
-    <Compile Include="Migrations\201807291017568_FKOrderId.Designer.cs">
-      <DependentUpon>201807291017568_FKOrderId.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201807301429086_OrderHeader_AddedColumnStatus.cs" />
-    <Compile Include="Migrations\201807301429086_OrderHeader_AddedColumnStatus.Designer.cs">
-      <DependentUpon>201807301429086_OrderHeader_AddedColumnStatus.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901071614135__AddedBirthDate.cs" />
-    <Compile Include="Migrations\201901071614135__AddedBirthDate.Designer.cs">
-      <DependentUpon>201901071614135__AddedBirthDate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901310736382_Init_LoginHistory.cs" />
-    <Compile Include="Migrations\201901310736382_Init_LoginHistory.Designer.cs">
-      <DependentUpon>201901310736382_Init_LoginHistory.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901310830517_LoginHistory_Added_IsLogedIn.cs" />
-    <Compile Include="Migrations\201901310830517_LoginHistory_Added_IsLogedIn.Designer.cs">
-      <DependentUpon>201901310830517_LoginHistory_Added_IsLogedIn.cs</DependentUpon>
+    <Compile Include="Migrations\202103231242422_Init_.cs" />
+    <Compile Include="Migrations\202103231242422_Init_.Designer.cs">
+      <DependentUpon>202103231242422_Init_.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountEntitys\ForgotPasswordViewModel.cs" />
@@ -535,12 +491,6 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201807080935557_Init.resx">
-      <DependentUpon>201807080935557_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807080939019_Init1.resx">
-      <DependentUpon>201807080939019_Init1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807101338082_Nullble-BirthDate.resx">
       <DependentUpon>201807101338082_Nullble-BirthDate.cs</DependentUpon>
     </EmbeddedResource>
@@ -556,35 +506,8 @@
     <EmbeddedResource Include="Migrations\201807171403498_SeedUsers.resx">
       <DependentUpon>201807171403498_SeedUsers.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807181045555_AddedTables_OrderDetail_OrderHeader.resx">
-      <DependentUpon>201807181045555_AddedTables_OrderDetail_OrderHeader.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807181121538_AddedTables_OrderDetail_OrderHeader1.resx">
-      <DependentUpon>201807181121538_AddedTables_OrderDetail_OrderHeader1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807231028493_RegeisterModel_FName_LName_PNumberAdded.resx">
-      <DependentUpon>201807231028493_RegeisterModel_FName_LName_PNumberAdded.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807231318192_addedFK_ProductId.resx">
-      <DependentUpon>201807231318192_addedFK_ProductId.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807291014475_FKUserId.resx">
-      <DependentUpon>201807291014475_FKUserId.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807291017568_FKOrderId.resx">
-      <DependentUpon>201807291017568_FKOrderId.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807301429086_OrderHeader_AddedColumnStatus.resx">
-      <DependentUpon>201807301429086_OrderHeader_AddedColumnStatus.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901071614135__AddedBirthDate.resx">
-      <DependentUpon>201901071614135__AddedBirthDate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901310736382_Init_LoginHistory.resx">
-      <DependentUpon>201901310736382_Init_LoginHistory.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901310830517_LoginHistory_Added_IsLogedIn.resx">
-      <DependentUpon>201901310830517_LoginHistory_Added_IsLogedIn.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202103231242422_Init_.resx">
+      <DependentUpon>202103231242422_Init_.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
