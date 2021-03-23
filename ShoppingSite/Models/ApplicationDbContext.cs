@@ -12,7 +12,7 @@ namespace ShoppingSite.Models
         {
         }
 
-        public DbSet<User> User { get; set; }
+        //public DbSet<User> User { get; set; }
         public DbSet<Products> Products { get; set; }
         public DbSet<ShoppingCart> ShoppingCart { get; set; }
         public DbSet<CategoryType> CategoryTypes { get; set; }
